@@ -65,5 +65,9 @@ class Tusuario extends CI_Controller{
 		$id = $this->uri->segment(3);
 		$this->Tusuario_model->borrar_tusuario($id);
 		redirect('Tusuario');
-	}	
+	}
+
+	public function Tusuarios_ajax(){
+		$this->Tusuario_model->obtener_tusuarios_ajax();
+	}
 }

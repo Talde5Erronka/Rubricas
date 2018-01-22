@@ -7,8 +7,8 @@ class Usuario_modulo extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('form');
 		$this->load->helper('url');		
-		$this->load->model('Modulo_model'); //Cenntro
-		$this->load->model('Usuario_model');//Curso
+		$this->load->model('Modulo_model'); //Modulo
+		$this->load->model('Usuario_model');//Usuario
 		$this->load->model('Usuario_modulo_model');		
 	}
 
@@ -84,22 +84,13 @@ class Usuario_modulo extends CI_Controller {
 	}	
 
 	public function filtrar_usuario_modulo(){
-		$datos = array(
-			'ID_Usuario' => $this->input->post('ID_Usuario'),
-			'ID_Modulo' => $this->input->post('ID_Modulo'),
-		);	
-		//$filtro_centro = $this->input->post('ID_Modulo');
-		//$filtro_curso = $this->input->post('ID_Usuario');
+		$ID_Modulo = $_GET['ID_Modulo'];
+		$ID_Usuario = $_GET['ID_Usuario'];
 
-		$datos['usuarios_modulos']=$this->Usuario_modulo_model->filtrar_usuario_modulo_valores($datos);	
-		$datos['modulos'] = $this->Modulo_model->obtener_modulos();
-		$datos['usuarios'] = $this->Usuario_model->obtener_usuarios();
+		$this->Usuario_modulo_model->filtrar_usuario_modulo_valores($ID_Modulo,$ID_Usuario);
+	}
 
-		$datos['filtrado'] = 1;
-
-		$this->load->view('header');
-		$this->load->view('usuario_modulo/listar_usuario_modulo',$datos);
-		$this->load->view('usuario_modulo/nuevo_usuario_modulo',$datos);
-		$this->load->view('footer');		
+	public function Usuarios_modulos_ajax(){
+		$this->Usuario_modulo_model->obtener_usuarios_modulos_ajax();
 	}
 }

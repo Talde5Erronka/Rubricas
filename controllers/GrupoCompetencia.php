@@ -65,5 +65,9 @@ class GrupoCompetencia extends CI_Controller {
 		$this->GrupoCompetencia_model->borrar_grupocompetencia($id);
 		redirect('GrupoCompetencia');
 	}
-	*/	
+	*/
+
+	public function GrupoCompetencias_ajax(){
+		$this->GrupoCompetencia_model->obtener_grupocompetencia_ajax();
+	}
 }

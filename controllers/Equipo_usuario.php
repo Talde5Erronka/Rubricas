@@ -93,21 +93,13 @@ class Equipo_usuario extends CI_Controller {
 	}
 
 	public function filtrar_equipo_usuario(){
-		$datos = array(
-			'ID_Equipo' => $this->input->post('ID_Equipo'),
-			'ID_Usuario' => $this->input->post('ID_Usuario'),
-		);	
+		$ID_Equipo = $_GET['ID_Equipo'];
+		$ID_Usuario = $_GET['ID_Usuario'];
 
-		$datos['equipos_usuarios']=$this->Equipo_usuario_model->filtrar_equipo_usuario_valores($datos);	
-		$datos['equipos'] = $this->Equipo_model->obtener_equipos();
-		$datos['usuarios'] = $this->Usuario_model->obtener_usuarios();
+		$this->Equipo_usuario_model->filtrar_equipo_usuario_valores($ID_Equipo,$ID_Usuario);
+	}
 
-		$datos['filtrado'] = 1;
-
-
-		$this->load->view('header');
-		$this->load->view('equipo_usuario/listar_equipo_usuario',$datos);
-		$this->load->view('equipo_usuario/nuevo_equipo_usuario',$datos);
-		$this->load->view('footer');		
+	public function Equipo_Usuario_ajax(){
+		$this->Equipo_usuario_model->obtener_equipos_usuarios_ajax();
 	}
 }

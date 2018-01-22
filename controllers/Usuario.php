@@ -92,23 +92,20 @@ class Usuario extends CI_Controller {
 		redirect('Usuario');
 	}	
 
-	public function filtrar_usuario(){
-		$datos = array(
-			'ID_Centro' => $this->input->post('ID_Centro'),
-			'ID_TUsuario' => $this->input->post('ID_TUsuario'),
-		);	
-		//$filtro_centro = $this->input->post('ID_Centro');
-		//$filtro_tusuario = $this->input->post('ID_TUsuario');	
+	public function filtrar_Usuario(){
+	
+		$ID_Centro = $_GET['ID_Centro'];
+		$ID_TUsuario = $_GET['ID_TUsuario'];
 
-		$datos['usuarios']=$this->Usuario_model->filtrar_usuario_valores($datos);
-		$datos['centros'] = $this->Centro_model->obtener_centros();
-		$datos['tusuarios'] = $this->Tusuario_model->obtener_tusuarios();
-
-		$datos['filtrado'] = 1;
-
-		$this->load->view('header');
-		$this->load->view('usuario/listar_usuario',$datos);
-		$this->load->view('usuario/nuevo_usuario',$datos);
-		$this->load->view('footer');		
+		$this->Usuario_model->filtrar_usuario_valores($ID_Centro,$ID_TUsuario);		
 	}
+
+		
+	public function Usuarios_ajax(){
+		$this->Usuario_model->obtener_usuarios_ajax();
+	}
+
+	
+
+	
 }

@@ -83,27 +83,15 @@ class Modulo extends CI_Controller {
 	}	
 
 	public function filtrar_modulo(){
-		$datos = array(
-			'ID_Ciclo' => $this->input->post('ID_Ciclo'),
-			
-		);	
-		//$filtro_centro = $this->input->post('ID_Centro');
-		//$filtro_curso = $this->input->post('ID_Curso');	
+		$ID_Centro = $_GET['ID_Centro'];
+		$ID_Ciclo = $_GET['ID_Ciclo'];
 
-		$datos['modulos']=$this->Modulo_model->filtrar_modulo_valores($datos);	
-		$datos['ciclos'] = $this->Ciclo_model->obtener_ciclos();
-
-		$datos['filtrado'] = 1;
-
-		$this->load->view('header');
-		$this->load->view('modulo/listar_modulo',$datos);
-		$this->load->view('modulo/nuevo_modulo',$datos);
-		$this->load->view('footer');		
+		$this->Modulo_model->filtrar_modulo_valores($ID_Centro,$ID_Ciclo);
 	}
 
-
-
-
+	public function Modulos_ajax(){
+		$this->Modulo_model->obtener_modulos_ajax();
+	}
 
 
 	}

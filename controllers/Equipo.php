@@ -82,19 +82,17 @@ class Equipo extends CI_Controller {
 	}	
 
 	public function filtrar_equipo(){
-		$datos = array(
-			'ID_Equipo' => $this->input->post('ID_Equipo'),
-			'ID_Reto' => $this->input->post('ID_Reto'),
-		);		
+		$ID_Reto = $_GET['ID_Reto'];
 
-		$datos['equipos']=$this->Equipo_model->filtrar_equipo_valores($datos);	
-		$datos['equipos_usuarios'] = $this->Equipo_usuario_model->obtener_equipos_usuarios();
-		$datos['retos'] = $this->Reto_model->obtener_retos	();
-		$datos['filtrado'] = 1;
+		$this->Equipo_model->filtrar_equipo_valores($ID_Reto);
+	}
 
-		$this->load->view('header');
-		$this->load->view('equipo/listar_equipo',$datos);
-		$this->load->view('equipo/nuevo_equipo',$datos);
-		$this->load->view('footer');		
+	public function Equipos_ajax(){
+		$this->Equipo_model->obtener_equipos_ajax();
+	}
+
+	public function Equipos_ajax2(){
+		$reto =	$reto = $_GET['reto'];
+		$this->Equipo_model->obtener_equipos_por_cada_reto($reto);
 	}
 }

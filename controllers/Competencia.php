@@ -98,4 +98,8 @@ class Competencia extends CI_Controller {
 		//$this->load->view('competencia/nuevo_competencia',$datos);
 		$this->load->view('footer');		
 	}
+
+	public function Competencias_ajax(){
+		$this->Competencia_model->obtener_competencias_ajax();
+	}
 }

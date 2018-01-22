@@ -67,5 +67,21 @@ class Reto extends CI_Controller {
 		$id = $this->uri->segment(3);
 		$this->Reto_model->borrar_reto($id);
 		redirect('Reto');
-	}	
+	}
+
+	public function Retos_ajax(){
+		$this->Reto_model->obtener_retos_ajax();
+	}
+
+	public function Retos_profesor(){
+		$ID_Usuario = $_GET['ID_Usuario'];
+
+		$this->Reto_model->obtener_retos_profesor($ID_Usuario);
+	}
+
+	public function Retos_alumno(){
+		$ID_Usuario = $_GET['ID_Usuario'];
+
+		$this->Reto_model->obtener_retos_alumno($ID_Usuario);
+	}
 }

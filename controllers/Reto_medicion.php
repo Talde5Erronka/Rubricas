@@ -33,51 +33,30 @@ class Reto_medicion extends CI_Controller {
 		/*$this->load->view('reto_medicion/nuevo_reto_medicion',$datos);*/
 		$this->load->view('footer');
 	}
-/*
-		public function nuevo(){
-		$datos['retos'] = $this->Reto_model->obtener_retos();
-		$datos['mediciones'] = $this->Medicion_model->obtener_mediciones();
-		$this->load->view('header');
-		$this->load->view('reto_medicion/nuevo_reto_medicion',$datos);
-		$this->load->view('footer');
-	}*/
 
-/*
-		public function nuevo_reto_medicion(){
-		$datos = array(
-			'ID_Reto' => $this->input->post('ID_Reto'),
-			'ID_Medicion' => $this->input->post('ID_Medicion'),										
-		);
-		$this->Reto_medicion_model->nuevo_reto_medicion($datos);
-		redirect('Reto_Medicion');		
-	}*/
+		
 
-/*
-		public function editar(){
-		$datos['segmento']=$this->uri->segment(3);
-		$datos['retos_mediciones']=$this->Reto_medicion_model->obtener_reto_medicion($datos['segmento']);
-		$datos['retos'] = $this->Reto_model->obtener_retos();
-		$datos['mediciones'] = $this->Medicion_model->obtener_medicion();
-		$this->load->view('header');
-		$this->load->view('reto_medicion/editar_reto_medicion',$datos);
-		$this->load->view('footer');
-	}*/
-/*
-		public function actualizar(){
-		$datos = array(
-		'ID_Reto' => $this->input->post('ID_Reto'),
-		'ID_Medicion' => $this->input->post('ID_Medicion'),	
-		);
-		$id = $this->uri->segment(3);
-		$this->Ciclo_model->actualizar_reto_modulo($id,$datos);
-		redirect('Reto_Medicion');
-	}*/
-/*
-		public function borrar(){
-		$id = $this->uri->segment(3);
-		$this->Reto_medicion_model->borrar_reto_medicion($id);
-		redirect('Reto_Medicion');
-	}*/
+
+	public function filtrar_reto_medicion(){
+		
+
+		$ID_Reto = $_GET['ID_Reto'];
+		$ID_Medicion = $_GET['ID_Medicion'];
+
+		$this->Reto_medicion_model->filtrar_reto_medicion_valores($ID_Reto,$ID_Medicion);
+		
+			
+	}
+
+	public function Retos_mediciones_ajax(){
+		//$this->Centro_model->obtener_centros_ajax();
+	}
+
+
+
+
+
+	/*
 
 
 	public function filtrar_reto_medicion(){
@@ -102,6 +81,8 @@ class Reto_medicion extends CI_Controller {
 		
 		$this->load->view('footer');		
 	}
+
+	*/
 
 
 	}

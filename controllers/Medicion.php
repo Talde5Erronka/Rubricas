@@ -83,19 +83,12 @@ class Medicion extends CI_Controller {
 	*/
 
 	public function filtrar_medicion(){
-		$datos = array(
-			'ID_Medicion' => $this->input->post('ID_Medicion'),
-			'ID_TUsuario' => $this->input->post('ID_TUsuario'),
-		);		
+		$ID_TUsuario = $_GET['ID_TUsuario'];
 
-		$datos['mediciones']=$this->Medicion_model->filtrar_medicion_valores($datos);	
-		$datos['tusuarios'] = $this->Tusuario_model->obtener_tusuarios();
+		$this->Medicion_model->filtrar_medicion_valores($ID_TUsuario);
+	}
 
-		$datos['filtrado'] = 1;
-
-		$this->load->view('header');
-		$this->load->view('medicion/listar_medicion',$datos);
-		//$this->load->view('medicion/nuevo_medicion',$datos);
-		$this->load->view('footer');		
+	public function Mediciones_ajax(){
+		$this->Medicion_model->obtener_mediciones_ajax();
 	}
 }

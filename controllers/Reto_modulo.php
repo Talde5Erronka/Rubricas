@@ -9,7 +9,7 @@ class Reto_modulo extends CI_Controller {
 		$this->load->helper('url');		
 		$this->load->model('Modulo_model');
 		$this->load->model('Reto_model');
-		$this->load->model('Reto_modulo_model');
+		$this->load->model('Reto_modulo_model');	
 		$this->load->model('Usuario_model');
 	}
 
@@ -38,7 +38,6 @@ class Reto_modulo extends CI_Controller {
 	public function nuevo(){
 		$datos['modulos'] = $this->Modulo_model->obtener_modulos();
 		$datos['retos'] = $this->Reto_model->obtener_retos();
-		$datos['usuarios'] = $this->Usuario_model->obtener_usuarios();
 		$this->load->view('header');
 		$this->load->view('reto_modulo/nuevo_reto_modulo',$datos);
 		$this->load->view('footer');
@@ -65,6 +64,7 @@ class Reto_modulo extends CI_Controller {
 		$datos['modulos'] = $this->Modulo_model->obtener_modulos();
 		$datos['retos'] = $this->Reto_model->obtener_retos();
 		$datos['usuarios'] = $this->Usuario_model->obtener_usuarios();
+		
 		$this->load->view('header');
 		$this->load->view('reto_modulo/editar_reto_modulo',$datos);
 		$this->load->view('footer');
@@ -91,22 +91,16 @@ class Reto_modulo extends CI_Controller {
 	}	
 
 	public function filtrar_reto_modulo(){
-		$datos = array(
-			'ID_Reto' => $this->input->post('ID_Reto'),
-			'ID_Modulo' => $this->input->post('ID_Modulo'),
-		);	
 
-		$datos['retos_modulos']=$this->Reto_modulo_model->filtrar_reto_modulo_valores($datos);	
-		$datos['modulos'] = $this->Modulo_model->obtener_modulos();
-		$datos['retos'] = $this->Reto_model->obtener_retos();
-		$datos['usuarios'] = $this->Usuario_model->obtener_usuarios();
-		
-		$datos['filtrado'] = 1;
+		$ID_Reto = $_GET['ID_Reto'];
+		$ID_Modulo = $_GET['ID_Modulo'];
 
-
-		$this->load->view('header');
-		$this->load->view('reto_modulo/listar_reto_modulo',$datos);
-		$this->load->view('reto_modulo/nuevo_reto_modulo',$datos);
-		$this->load->view('footer');		
+		$this->Reto_modulo_model->filtrar_reto_modulo_valores($ID_Reto,$ID_Modulo);
+			
 	}
+
+	public function Retos_modulos(){
+		$this->Reto_modulo_model->obtener_retos_modulos_ajax();
+	}
+
 }

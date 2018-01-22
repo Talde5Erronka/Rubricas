@@ -65,9 +65,20 @@ class Curso extends CI_Controller {
 		$id = $this->uri->segment(3);
 		$this->Curso_model->borrar_curso($id);
 		redirect('Curso');
-	}	
+	}
 
-		public function Cursos_ajax(){
+/*
+	public function filtrar_curso(){
+		$ID_Curso = $_GET['ID_Curso'];
+		$COD_Curso = $_GET['COD_Curso'];
+
+		$this->Curso_model->filtrar_curso_valores($ID_Curso,$COD_Curso);
+	}
+	*/
+
+	public function Cursos_ajax(){
 		$this->Curso_model->obtener_cursos_ajax();
 	}
+
+		
 }

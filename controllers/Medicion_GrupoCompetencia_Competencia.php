@@ -88,23 +88,16 @@ class Medicion_GrupoCompetencia_Competencia extends CI_Controller {
 		redirect('Medicion_GrupoCompetencia_Competencia');
 	}	
 	*/
+
 	public function filtrar_medicion_grupocompetencia_competencia(){
-		$datos = array(
-			'ID_Medicion' => $this->input->post('ID_Medicion'),
-			'ID_GrupoCompetencia' => $this->input->post('ID_GrupoCompetencia'),
-			'ID_Competencia' => $this->input->post('ID_Competencia')
-		);	
+		$ID_Medicion = $_GET['ID_Medicion'];
+		$ID_GrupoCompetencia = $_GET['ID_GrupoCompetencia'];
+		$ID_Competencia = $_GET['ID_Competencia'];
 
-		$datos['mediciones_grupocompetencias_competencias']=$this->Medicion_GrupoCompetencia_Competencia_model->filtrar_medicion_grupocompetencia_competencia_valores($datos);	
-		$datos['grupocompetencias'] = $this->GrupoCompetencia_model->obtener_grupocompetencias();
-		$datos['mediciones'] = $this->Medicion_model->obtener_mediciones();
-		$datos['competencias'] = $this->Competencia_model->obtener_competencias();
+		$this->Medicion_GrupoCompetencia_Competencia_model->filtrar_medicion_grupocompetencia_competencia_valores($ID_Medicion,$ID_GrupoCompetencia,$ID_Competencia);
+	}
 
-		$datos['filtrado'] = 1;
-
-		$this->load->view('header');
-		$this->load->view('medicion_grupocompetencia_competencia/listar_medicion_grupocompetencia_competencia',$datos);
-		//$this->load->view('medicion_grupocompetencia_competencia/nuevo_medicion_grupocompetencia_competencia',$datos);
-		$this->load->view('footer');		
+	public function Medicion_GrupoCompetencia_Competencia_ajax(){
+		$this->Medicion_GrupoCompetencia_Competencia_model->obtener_medicion_grupocompetencia_competencia_ajax();
 	}
 }
