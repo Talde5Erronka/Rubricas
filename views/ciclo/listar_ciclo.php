@@ -1,6 +1,6 @@
 <div>
 <?php
-		printf('Gestión de USUARIOS_MODULOS<br>');
+		printf('Gestión de CICLOS<br>');
 		printf('<br>');
 		?>
 
@@ -35,12 +35,11 @@
 		function mostrartabla(){
 
 			//Coge el valor de los desplegables 
-			var cod1 = document.getElementById('Modulos').value;
-			var cod2 = document.getElementById('Usuarios').value;
-
+			var cod1 = document.getElementById('Centros').value;
+			var cod2 = document.getElementById('Cursos').value;
+			
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('Usuario_modulo/filtrar_usuario_modulo',{ID_Modulo:cod1,ID_Usuario:cod2},function(datos){
-
+		  	$.get('Ciclo/filtrar_ciclo',{ID_Centro:cod1,ID_Curso:cod2},function(datos){
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
 
@@ -49,13 +48,13 @@
 				
 				//Mete los títulos de la tabla
 				$("#sacardatos").append(
-						"<tr><td></td><td><strong>ID_Usuario_Modulo</strong></td><td><strong>DESC_Modulo</strong></td><td><strong>User</strong></td><td><strong>COD_Modulo</strong></td></tr>"
+						"<tr><td></td><td><strong>ID_Ciclo</strong></td><td><strong>DESC_Centro</strong></td><td><strong>COD_Curso</strong></td><td><strong>COD_Ciclo</strong></td><td><strong>DESC_Ciclo</strong></td></tr>"
 				)
 
 				//Mete los datos en la tabla
 				$.each(datos2,function(indice,valor){
 					$("#sacardatos").append( 
-						"<tr><td><input type='checkbox' name='checkbox[]' id='"+valor.ID_Usuario_Modulo+"'onClick='gurdar(this.id)'></td><td><a href=Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.ID_Usuario_Modulo+"</a></td><td><a href=Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.DESC_Modulo+"</a></td><td><a href=Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.User+"</a></td><td><a href=Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.COD_Modulo+"</a></td>"
+						"<tr><td><input type='checkbox' name='checkbox[]' id='"+valor.ID_Ciclo+"'onClick='gurdar(this.id)'></td><td><a href=Ciclo/editar/"+valor.ID_Ciclo+">"+valor.ID_Ciclo+"</a></td><td><a href=Ciclo/editar/"+valor.ID_Ciclo+">"+valor.DESC_Centro+"</a></td><td><a href=Ciclo/editar/"+valor.ID_Ciclo+">"+valor.COD_Curso+"</a></td><td><a href=Ciclo/editar/"+valor.ID_Ciclo+">"+valor.COD_Ciclo+"</a></td><td><a href=Ciclo/editar/"+valor.ID_Ciclo+">"+valor.DESC_Ciclo+"</a></td>"
 					)
 				});
 			});
@@ -65,26 +64,26 @@
 
 //DESPLEGABLES------------------------------------------------------------
 
-			//Desplegable MODULOS
-			$.get('Modulo/Modulos_ajax', function(datos){
+			//Desplegable CENTROS
+			$.get('Centro/Centros_ajax', function(datos){
 						
 				datos2=JSON.parse(datos);
 
 				$.each(datos2,function(indice,valor){
 						
-						$("#Modulos").append('<option value="'+valor.ID_Modulo +'">'+valor.DESC_Modulo	+'</option>')
+						$("#Centros").append('<option value="'+valor.ID_Centro +'">'+valor.DESC_Centro	+'</option>')
 				});
 				
 			});
 
-			//Desplegable USUARIOS
-			$.get('Usuario/Usuarios_ajax', function(datos3){
+			//Desplegable Cursos
+			$.get('Curso/Cursos_ajax', function(datos3){
 						
 				datos4=JSON.parse(datos3);
 
 				$.each(datos4,function(indice,valor){
 						
-						$("#Usuarios").append('<option value="'+valor.ID_Usuario +'">'+valor.User	+'</option>')
+						$("#Cursos").append('<option value="'+valor.ID_Curso +'">'+valor.COD_Curso	+'</option>')
 				});
 				
 			});
@@ -99,15 +98,15 @@
 
 	</script>
 
-	<label>Modulos: </label>
-	<select id="Modulos">
-		<option value="">Todos los Modulos</option>
+	<label>Centros: </label>
+	<select id="Centros">
+		<option value="">Todos los Centros</option>
 			option	
 	</select>
 
-	<label>Usuarios: </label>
-	<select id="Usuarios">
-		<option value="">Todos los Usuarios</option>
+	<label>Cursos: </label>
+	<select id="Cursos">
+		<option value="">Todos los Tipos de Cursos</option>
 		option
 	</select>
 

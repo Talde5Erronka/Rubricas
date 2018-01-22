@@ -18,7 +18,7 @@ $DESC_Modulo = array(
 	);
 
 	
-if ($ciclos){
+	if ($ciclos){
 		$ID_Ciclo = array();
 		foreach ($ciclos->result() as $ciclo) {
 			$ID_Ciclo[$ciclo->ID_Ciclo] = $ciclo->DESC_Ciclo;
@@ -40,8 +40,7 @@ if ($ciclos){
 		$ID_Modulo = array(
     		0         => 'No hay Modulos'
 		);
-	}	
-
+	}
 
 ?>
 
@@ -50,18 +49,19 @@ if ($ciclos){
 	<?php echo form_open('Modulo/nuevo_modulo',$form);?>
 	<?php echo form_label('Ciclo: ','ID_Ciclo'); ?>
 	<?php
-	//DESPLEGABLE DE CENTRO
+	//DESPLEGABLE DE CICLO
 	echo form_dropdown('ID_Ciclo', $ID_Ciclo,1);
 	?>
 	<br>
-
 	
 	<?php echo form_label('Código de Modulo: ','COD_Modulo'); ?>
 	<?php echo form_input($COD_Modulo); ?>
 	<br>
+
 	<?php echo form_label('Descripción de Modulo: ','DESC_Modulo'); ?>
 	<?php echo form_input($DESC_Modulo); ?>
-	<br>	
+	<br>
+
 	<?php echo form_submit('Crear','Crear'); ?>
 	<?php echo form_close();?>
 </div>

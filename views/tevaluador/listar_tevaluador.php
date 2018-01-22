@@ -1,7 +1,7 @@
 <div>
 <?php
 		printf('Gestión de TEVALUADORES<br>');
-		printf('--------------------------------------------------------------------<br>');
+		printf('<br>');
 		?>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -34,7 +34,6 @@
 		function mostrartabla(){
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
 		  	$.get('Tevaluador/Tevaluadores_ajax',function(datos){
-				alert(datos);
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
 

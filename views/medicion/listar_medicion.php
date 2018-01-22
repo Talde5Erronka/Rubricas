@@ -1,100 +1,108 @@
 <div>
 <?php
-		printf('Gestión de MEDICION<br>');
-		printf('--------------------------------------------------------------------<br>');
-		
-		//filtrar_medicion DE TUSUARIO
-
-		if ($tusuarios){
-			$ID_TUsuario = array(
-	    		0         => 'Todos los Tusuarios'
-			);
-			foreach ($tusuarios->result() as $tusuario) {
-				$ID_TUsuario[$tusuario->ID_TUsuario] = $tusuario->DESC_TUsuario;
-			}	
-		}
-		else{
-			$ID_TUsuario = array(
-	    		0         => 'Todos los Tusuarios'
-			);
-		}	
-
+		printf('Gestión de MEDICIONES<br>');
+		printf('<br>');
 		?>
 
-
-		<div>
-			<?php echo form_open('Medicion/filtrar_medicion');?>
-			<?php echo form_label('Tusuario: ','ID_TUsuario'); ?>
-			<?php
-			//DESPLEGABLE DE TUSUARIO
-			echo form_dropdown('ID_TUsuario', $ID_TUsuario);
-			?>
-			<?php echo form_submit('Filtrar','Filtrar'); ?>
-			<?php echo form_close();?>
-		</div>
-
-		<?php
-		printf('--------------------------------------------------------------------<br>');	
-
-
-		//TABLA DE RESULTADOS DEL LISTADO	
-		if ($mediciones){
-			printf('<table>
-				<thead>			
-				<tr>
-					<td>
-						<label for="select_all"></label>
-						<input id="select_all" type="checkbox">
-					</td>
-				');
-			$primermedicion = $mediciones->result()[0];
-			foreach ($primermedicion as $key => $value) {
-				printf('<th id="%s">
-						<span>%s</span>
-					</th>',$key,$key);
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+		<script type="text/javascript">
+			
+		
+	$("document").ready(function(source){//Función general
+		/*
+		$('#select-all').click(function(event) {   //Seleccionar todos los check-box
+					 	
+			if(this.checked) { 
+				$(':checkbox').each(function() {
+					   this.checked = true;                       
+				});
 			}
-			printf(/*'<th>Acciones</th>*/'</tr>
-			</thead>
-			<tbody>');
-			foreach ($mediciones->result() as $medicion) {
-				printf('<tr>
-					<th>
-					<label for="select_%d"></label>
-					<input id="select_%d" type="checkbox">
-					</th>',$medicion->ID_Medicion,$medicion->ID_Medicion);
+
+			else {
+				$(':checkbox').each(function() {
+					    this.checked = false;
+				});
+			}
+		});
+		*/
+
 				
-				foreach ($medicion as $detalle) {
-					
-					if($filtrado==0){
-						printf('<td>
-						<a href="Medicion/editar/%s">%s</a>
-						</td>',$medicion->ID_Medicion,$detalle);
-					}
-					else{
-						printf('<td>
-						<a href="editar/%s">%s</a>
-						</td>',$medicion->ID_Medicion,$detalle);
-					}	
-				}
+		
 
-				/*if($filtrado==0){
-					$url = "'medicion/borrar/".$medicion->ID_Medicion."'"; 
-				}
-				else{
-					$url = "'borrar/".$medicion->ID_Medicion."'"; 
-				}
+//FUNCIÓN DE LISTAR LA TABLA----------------------------------------------------
+
+		function mostrartabla(){
+
+			//Coge el valor de los desplegables 
+			var cod1 = document.getElementById('TUsuarios').value;
+			
+			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
+		  	$.get('Medicion/filtrar_medicion',{ID_TUsuario:cod1},function(datos){
+				//Se parsea a JSON
+				datos2=JSON.parse(datos);
+
+				//Vacia la tabla
+				document.getElementById("sacardatos").innerHTML="";
 				
+				//Mete los títulos de la tabla
+				$("#sacardatos").append(
+						"<tr><td><strong>ID_Medicion</strong></td><td><strong>DESC_TUsuario</strong></td><td><strong>COD_Medicion</strong></td><td><strong>DESC_Medicion</strong></td></tr>"
+				)
 
-				printf('<td><input type="button" onclick="location.href=%s" value="Borrar"></td>',$url);
-				*/
-				printf('</tr>');
-			}	
-			printf('</tbody></table>');
-		}
-		else{
-				printf('No hay Registros');
-		}
+				//Mete los datos en la tabla
+				$.each(datos2,function(indice,valor){
+					$("#sacardatos").append( 
+						"<tr><td><a href=Medicion/editar/"+valor.ID_Medicion+">"+valor.ID_Medicion+"</a></td><td><a href=Medicion/editar/"+valor.ID_Medicion+">"+valor.DESC_TUsuario+"</a></td><td><a href=Medicion/editar/"+valor.ID_Medicion+">"+valor.COD_Medicion+"</a></td><td><a href=Medicion/editar/"+valor.ID_Medicion+">"+valor.DESC_Medicion+"</a></td>"
+					)
+				});
+			});
+						
+};
+		
 
-		printf('--------------------------------------------------------------------<br>');	
-		?>		
+//DESPLEGABLES------------------------------------------------------------
+
+			//Desplegable RETOS
+			$.get('Tusuario/TUsuarios_ajax', function(datos){
+						
+				datos2=JSON.parse(datos);
+
+				$.each(datos2,function(indice,valor){
+						
+						$("#TUsuarios").append('<option value="'+valor.ID_TUsuario +'">'+valor.DESC_TUsuario	+'</option>')
+				});
+				
+			});
+			
+			//Botón para actualizar los datos
+			$("#boton").click(function(){
+					mostrartabla();
+			});
+							
+			mostrartabla(); //EJECUTA LA FUNCIÓN
+});
+
+	</script>
+
+	<label>TUsuarios: </label>
+	<select id="TUsuarios">
+		<option value="">Todos los TUsuarios</option>
+			option	
+	</select>
+
+	<button id="boton" >Mostrar</button>
+
+	<hr>
+	<!-- <input type='checkbox' name='select-all' id='select-all' value="hola"> -->
+	
+	<table id='sacardatos'>
+	</table>
+
+	<!-- <input type="submit" name="BtnEliminar" value="Eliminar"/> -->
+
+	<br>
+	<hr>
+
+	<br>
 </div>

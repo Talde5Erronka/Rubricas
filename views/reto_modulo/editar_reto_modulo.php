@@ -4,9 +4,17 @@ $form = array(
 	);
 $url = "'".base_url()."index.php/Reto_modulo'";
 $js_cancel_button = 'onClick="location.href='.$url.'"';
+$ID_UAdmin = array(	
+	'name' => 'ID_UAdmin',
+	'placeholder' => 'Descripción de ID_UAdmin',
+	'maxlength' => 100,
+	'size' => 30,
+	'required' => 1,
+	'value' => $retos_modulos->result()[0]->ID_UAdmin
+	);
 $IN_Extendido = array(	
 	'name' => 'IN_Extendido',
-	'placeholder' => 'Descripción de Reto_modulo',
+	'placeholder' => 'Descripción de IN_Extendido',
 	'maxlength' => 100,
 	'size' => 30,
 	'required' => 1,
@@ -14,7 +22,7 @@ $IN_Extendido = array(
 	);
 $IN_EAbierta = array(	
 	'name' => 'IN_EAbierta',
-	'placeholder' => 'Descripción de Reto_modulo',
+	'placeholder' => 'Descripción de IN_EAbierta',
 	'maxlength' => 100,
 	'size' => 30,
 	'required' => 1,
@@ -46,22 +54,22 @@ $IN_EAbierta = array(
 		);
 	}
 
-	if ($usuarios){
+	/*if ($usuarios){
 		$ID_Usuario = array();
 		foreach ($usuarios->result() as $usuario) {
-			$ID_Usuario[$usuario->ID_Usuario] = $usuario->User;
+			$ID_Usuario[$usuario->ID_Usuario] = $usuario->Nombre;
 		}	
 	}
 	else{
 		$ID_Usuario = array(
     		0         => 'No hay UAdmins'
 		);
-	}	
+	}*/	
 
 ?>
 
 <div>
-	<?php echo form_open('Reto_modulo/actualizar/'.$retos_modulos->result()[0]->ID_Reto_modulo);?>
+	<?php echo form_open('Reto_modulo/actualizar/'.$retos_modulos->result()[0]->ID_Reto_Modulo);?>
 	<?php echo form_label('Modulo: ','ID_Modulo'); ?>
 	<?php
 	//DESPLEGABLE DE MODULO
@@ -75,12 +83,18 @@ $IN_EAbierta = array(
 	echo form_dropdown('ID_Reto', $ID_Reto, $retos_modulos->result()[0]->ID_Reto);
 	?>
 	<br>
-
+	
+	<!--
 	<?php echo form_label('UAdmin: ','ID_Usuario'); ?>
 	<?php
 	//DESPLEGABLE DE UDADMIN
-	echo form_dropdown('ID_Usuario', $ID_Usuario, $usuarios->result()[0]->ID_Usuario);
+	echo form_dropdown('ID_Usuario', $ID_Usuario, $retos_modulos->result()[0]->ID_UAdmin);
 	?>
+	<br>
+	-->
+	
+	<?php echo form_label('ID_UAdmin: ','ID_UAdmin'); ?>
+	<?php echo form_input($ID_UAdmin); ?>
 	<br>
 
 	<?php echo form_label('IN Extendido: ','IN_Extendido'); ?>

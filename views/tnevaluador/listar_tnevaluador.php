@@ -1,6 +1,6 @@
 <div>
 <?php
-		printf('Gestión de COMPETENCIAS<br>');
+		printf('Gestión de TNEVALUADORES<br>');
 		printf('<br>');
 		?>
 
@@ -10,7 +10,7 @@
 			
 		
 	$("document").ready(function(source){//Función general
-		/*
+
 		$('#select-all').click(function(event) {   //Seleccionar todos los check-box
 					 	
 			if(this.checked) { 
@@ -25,17 +25,15 @@
 				});
 			}
 		});
-	*/
+
 				
 		
 
 //FUNCIÓN DE LISTAR LA TABLA----------------------------------------------------
 
 		function mostrartabla(){
-
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('Competencia/Competencias_ajax',function(datos){
-				
+		  	$.get('Tnevaluador/Tnevaluadores_ajax',function(datos){
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
 
@@ -44,7 +42,7 @@
 				
 				//Mete los títulos de la tabla
 				$("#sacardatos").append(
-						"<tr><td><strong>ID_Competencia</strong></td><td><strong>DESC_Competencia</strong></td><td><strong>Mal</strong></td><td><strong>Regular</strong></td><td><strong>Bien</strong></td><td><strong>Excelente</strong></td></tr>"
+						"<tr><td></td><td><strong>ID_TNEvaluador</strong></td><td><strong>DESC_TNEvaluador</strong></td></tr>"
 				)
 
 
@@ -53,7 +51,7 @@
 				$.each(datos2,function(indice,valor){
 
 					$("#sacardatos").append( 
-						"<tr><td><a href=Competencia/editar/"+valor.ID_Competencia+">"+valor.ID_Competencia+"</a></td><td><a href=Competencia/editar/"+valor.ID_Competencia+">"+valor.DESC_Competencia+"</a></td><td><a href=Competencia/editar/"+valor.ID_Competencia+">"+valor.Mal+"</a></td><td><a href=Competencia/editar/"+valor.ID_Competencia+">"+valor.Regular+"</a></td><td><a href=Competencia/editar/"+valor.ID_Competencia+">"+valor.Bien+"</a></td><td><a href=Competencia/editar/"+valor.ID_Competencia+">"+valor.Excelente+"</a></td>"
+						"<tr><td><input type='checkbox' name='checkbox[]' id='"+valor.ID_TNEvaluador+"'onClick='gurdar(this.id)'></td><td><a href=Tnevaluador/editar/"+valor.ID_TNEvaluador+">"+valor.ID_TNEvaluador+"</a></td><td><a href=Tnevaluador/editar/"+valor.ID_TNEvaluador+">"+valor.DESC_TNEvaluador+"</a></td>"
 					)
 				});
 			});
@@ -64,12 +62,12 @@
 
 	</script>
 
-	<!-- <input type='checkbox' name='select-all' id='select-all' value="hola"> -->
+	<input type='checkbox' name='select-all' id='select-all' value="hola">
 	
 	<table id='sacardatos'>
 	</table>
 
-	<!-- <input type="submit" name="BtnEliminar" value="Eliminar"/> -->
+	<input type="submit" name="BtnEliminar" value="Eliminar"/>
 
 	<br>
 	<hr>

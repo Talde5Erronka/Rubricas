@@ -1,140 +1,148 @@
 <div>
 <?php
-		printf('Gestión de MEDICION DE GRUPOCOMPETENCIA DE COMPETENCIA<br>');
-		printf('--------------------------------------------------------------------<br>');
-		
-		//FILTROS DE GRUPOCOMPETENCIA, COMPETENCIA Y MEDICIONES
-		if ($mediciones){
-			$ID_Medicion = array(
-	    		0         => 'Todas las Mediciones'
-			);
-			foreach ($mediciones->result() as $medicion) {
-				$ID_Medicion[$medicion->ID_Medicion] = $medicion->DESC_Medicion;
-			}	
-		}
-		else{
-			$ID_Medicion = array(
-	    		0         => 'Todas las Mediciones'
-			);
-		}
-
-		if ($grupocompetencias){
-			$ID_Grupo_Competencia = array(
-	    		0         => 'Todas las GrupoCompetencias'
-			);
-			foreach ($grupocompetencias->result() as $grupocompetencia) {
-				$ID_Grupo_Competencia[$grupocompetencia->ID_Grupo_Competencia] = $grupocompetencia->DESC_Grupo_Competencia;
-			}	
-		}
-		else{
-			$ID_Grupo_Competencia = array(
-	    		0         => 'Todas las GrupoCompetencias'
-			);
-		}
-
-		if ($competencias){
-			$ID_Competencia = array(
-	    		0         => 'Todas las Competencias'
-			);
-			foreach ($competencias->result() as $competencia) {
-				$ID_Competencia[$competencia->ID_Competencia] = $competencia->DESC_Competencia;
-			}	
-		}
-		else{
-			$ID_Competencia = array(
-	    		0         => 'Todas las Competencias'
-			);
-		}	
-
+		printf('Gestión de MEDICION_GRUPOCOMPETENCIA_COMPETENCIA<br>');
+		printf('<br>');
 		?>
 
-
-		<div>
-			<?php echo form_open('Medicion_GrupoCompetencia_Competencia/filtrar_medicion_grupocompetencia_competencia');?>
-			<?php echo form_label('Medicion: ','ID_Medicion'); ?>
-			<?php
-			//DESPLEGABLE DE MEDICIONES
-			echo form_dropdown('ID_Medicion', $ID_Medicion);
-			?>
-			<?php echo form_label('GrupoCompetencia: ','ID_Grupo_Competencia'); ?>
-			<?php
-			//DESPLEGABLE DE GRUPOCOMPETENCIAS
-			echo form_dropdown('ID_Grupo_Competencia', $ID_Grupo_Competencia);
-			?>
-			<?php echo form_label('Competencia: ','ID_Competencia'); ?>
-			<?php
-			//DESPLEGABLE DE COMPETENCIAS
-			echo form_dropdown('ID_Competencia', $ID_Competencia);
-			?>
-			<?php echo form_submit('Filtrar','Filtrar'); ?>
-			<?php echo form_close();?>
-		</div>
-
-		<?php
-		printf('--------------------------------------------------------------------<br>');	
-
-
-		//TABLA DE RESULTADOS DEL LISTADO	
-		if ($mediciones_grupocompetencias_competencias){
-			printf('<table>
-				<thead>			
-				<tr>
-					<td>
-						<label for="select_all"></label>
-						<input id="select_all" type="checkbox">
-					</td>
-				');
-			$primermedicion_grupocompetencia_competencia = $mediciones_grupocompetencias_competencias->result()[0];
-			foreach ($primermedicion_grupocompetencia_competencia as $key => $value) {
-				printf('<th id="%s">
-						<span>%s</span>
-					</th>',$key,$key);
-			}
-			printf(/*'<th>Acciones</th>*/'</tr>
-			</thead>
-			<tbody>');
-
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+		<script type="text/javascript">
 			
-			foreach ($mediciones_grupocompetencias_competencias->result() as $medicion_grupocompetencia_competencia) {
-				printf('<tr>
-					<th>
-					<label for="select_%d"></label>
-					<input id="select_%d" type="checkbox">
-					</th>',$medicion_grupocompetencia_competencia->ID_GrupoCompetencia_Competencia,$medicion_grupocompetencia_competencia->ID_GrupoCompetencia_Competencia);
-				//Paso el objeto stdClass a Array para modificar COD_Centro y COD_Curso
-				//$medicion_grupocompetencia_competenciaArray = get_object_vars($medicion_grupocompetencia_competencia);
-				//var_dump($medicion_grupocompetencia_competencia['ID_competencia']);
-				foreach ($medicion_grupocompetencia_competencia as $detalle) {
-					//Para competencia y Centro hay que sacar su COD_CENTRO y COD_CURSO
-					if($filtrado==0){	
-						printf('<td>
-						<a href="Medicion_GrupoCompetencia_Competencia/editar/%s">%s</a>
-						</td>',$medicion_grupocompetencia_competencia->ID_GrupoCompetencia_Competencia,$detalle);
-					}
-					else{
-						printf('<td>
-						<a href="editar/%s">%s</a>
-						</td>',$medicion_grupocompetencia_competencia->ID_GrupoCompetencia_Competencia,$detalle);
-					}
-				}
-				/*
-				if($filtrado==0){
-					$url = "'medicion_grupocompetencia_competencia/borrar/".$medicion_grupocompetencia_competencia->ID_GrupoCompetencia_Competencia."'"; 
-				}
-				else{
-					$url = "'borrar/".$medicion_grupocompetencia_competencia->ID_GrupoCompetencia_Competencia."'"; 
-				}
-				
-				printf('<td><input type="button" onclick="location.href=%s" value="Borrar"></td>',$url);
-				*/
-				printf('</tr>');
-			}	
-			printf('</tbody></table>');
-		}
-		else{
-				printf('No hay Registros');
-		}
+		
+	$("document").ready(function(source){//Función general
+		/*
+		$('#select-all').click(function(event) {   //Seleccionar todos los check-box
+					 	
+			if(this.checked) { 
+				$(':checkbox').each(function() {
+					   this.checked = true;                       
+				});
+			}
 
-		//printf('--------------------------------------------------------------------<br>');	
-		?>		
+			else {
+				$(':checkbox').each(function() {
+					    this.checked = false;
+				});
+			}
+		});
+		*/
+				
+		
+
+//FUNCIÓN DE LISTAR LA TABLA----------------------------------------------------
+
+		function mostrartabla(){
+
+			//Coge el valor de los desplegables 
+			var cod1 = document.getElementById('GrupoCompetencias').value;
+			var cod2 = document.getElementById('Mediciones').value;
+			var cod3 = document.getElementById('Competencias').value;
+			
+			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
+		  	$.get('Medicion_GrupoCompetencia_Competencia/filtrar_medicion_grupocompetencia_competencia',{ID_GrupoCompetencia:cod1,ID_Medicion:cod2,ID_Competencia:cod3},function(datos){
+				
+				//Se parsea a JSON
+				datos2=JSON.parse(datos);
+				
+				//Vacia la tabla
+				document.getElementById("sacardatos").innerHTML="";
+				
+				//Mete los títulos de la tabla
+				$("#sacardatos").append(
+						"<tr><td><strong>ID_GrupoCompetencia_Competencia</strong></td><td><strong>ID_Medicion</strong></td><td><strong>DESC_Medicion</strong></td><td><strong>ID_Grupo_Competencia</strong></td><td><strong>DESC_Grupo_Competencia</strong></td><td><strong>ID_Competencia</strong></td><td><strong>DESC_Competencia</strong></td><td><strong>Porcentaje</strong></td></tr>"
+				)
+
+				//Mete los datos en la tabla
+				$.each(datos2,function(indice,valor){
+					$("#sacardatos").append( 
+						"<tr><td><a href=Medicion_GrupoCompetencia_Competencia/editar/"+valor.ID_GrupoCompetencia_Competencia+">"+valor.ID_GrupoCompetencia_Competencia+"</a></td><td><a href=Medicion_GrupoCompetencia_Competencia/editar/"+valor.ID_GrupoCompetencia_Competencia+">"+valor.ID_Medicion+"</a></td><td><a href=Medicion_GrupoCompetencia_Competencia/editar/"+valor.ID_GrupoCompetencia_Competencia+">"+valor.DESC_Medicion+"</a></td><td><a href=Medicion_GrupoCompetencia_Competencia/editar/"+valor.ID_GrupoCompetencia_Competencia+">"+valor.ID_GrupoCompetencia+"</a></td><td><a href=Medicion_GrupoCompetencia_Competencia/editar/"+valor.ID_GrupoCompetencia_Competencia+">"+valor.DESC_Grupo_Competencia+"</a></td><td><a href=Medicion_GrupoCompetencia_Competencia/editar/"+valor.ID_GrupoCompetencia_Competencia+">"+valor.ID_Competencia+"</a></td><td><a href=Medicion_GrupoCompetencia_Competencia/editar/"+valor.ID_GrupoCompetencia_Competencia+">"+valor.DESC_Competencia+"</a></td><td><a href=Medicion_GrupoCompetencia_Competencia/editar/"+valor.ID_GrupoCompetencia_Competencia+">"+valor.Porcentaje+"</a></td>"
+					)
+				});
+			});
+						
+};
+		
+
+//DESPLEGABLES------------------------------------------------------------
+
+			//Desplegable GRUPOCOMPETENCIAS
+			$.get('GrupoCompetencia/GrupoCompetencias_ajax', function(datos){
+						
+				datos2=JSON.parse(datos);
+
+				$.each(datos2,function(indice,valor){
+						
+						$("#GrupoCompetencias").append('<option value="'+valor.ID_Grupo_Competencia +'">'+valor.DESC_Grupo_Competencia	+'</option>')
+				});
+				
+			});
+
+			//Desplegable MEDICIONES
+			$.get('Medicion/Mediciones_ajax', function(datos3){
+						
+				datos4=JSON.parse(datos3);
+
+				$.each(datos4,function(indice,valor){
+						
+						$("#Mediciones").append('<option value="'+valor.ID_Medicion +'">'+valor.DESC_Medicion	+'</option>')
+				});
+				
+			});
+
+			//Desplegable COMPETENCIAS
+			$.get('Competencia/Competencias_ajax', function(datos5){
+						
+				datos6=JSON.parse(datos5);
+
+				$.each(datos6,function(indice,valor){
+						
+						$("#Competencias").append('<option value="'+valor.ID_Competencia +'">'+valor.DESC_Competencia	+'</option>')
+				});
+				
+			});
+			
+			//Botón para actualizar los datos
+			$("#boton").click(function(){
+					mostrartabla();
+			});
+							
+			mostrartabla(); //EJECUTA LA FUNCIÓN
+});
+
+	</script>
+
+	<label>GrupoCompetencias: </label>
+	<select id="GrupoCompetencias">
+		<option value="">Todas las GrupoCompetencias</option>
+			option	
+	</select>
+
+	<label>Mediciones: </label>
+	<select id="Mediciones">
+		<option value="">Todas las Mediciones</option>
+		option
+	</select>
+
+	<label>Competencias: </label>
+	<select id="Competencias">
+		<option value="">Todas las Competencias</option>
+		option
+	</select>
+
+	<button id="boton" >Mostrar</button>
+
+	<hr>
+	<!-- <input type='checkbox' name='select-all' id='select-all' value="hola"> -->
+	
+	<table id='sacardatos'>
+	</table>
+
+	<!-- <input type="submit" name="BtnEliminar" value="Eliminar"/> -->
+
+	<br>
+	<hr>
+
+	<br>
+
+
 </div>

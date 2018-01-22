@@ -1,43 +1,94 @@
 <div>
 <?php
-		printf('Gestión de CURSOS');
-		if ($cursos){
-			printf('<table>
-				<thead>			
-				<tr>
-					<td>
-						<label for="select_all"></label>
-						<input id="select_all" type="checkbox">
-					</td>
-				');
-			$primercurso = $cursos->result()[0];
-			foreach ($primercurso as $key => $value) {
-				printf('<th id="%s">
-						<span>%s</span>
-					</th>',$key,$key);
-			}
-			printf('<th>Acciones</th></tr>
-			</thead>
-			<tbody>');
-			foreach ($cursos->result() as $curso) {
-				printf('<tr>
-					<th>
-					<label for="select_%d"></label>
-					<input id="select_%d" type="checkbox">
-					</th>',$curso->ID_Curso,$curso->ID_Curso);
-				foreach ($curso as $detalle) {
-					printf('<td>
-					<a href="Curso/editar/%s">%s</a>
-					</td>',$curso->ID_Curso,$detalle);
-				}
-				$url = "'curso/borrar/".$curso->ID_Curso."'"; 
-				printf('<td><input type="button" onclick="location.href=%s" value="Borrar"></td>',$url);
-				printf('</tr>');
-			}	
-			printf('</tbody></table>');
-		}
-		else{
-				printf('No hay Registros');
-		}
-		?>		
+		
+		printf('Gestión de CURSOS<br>');
+		printf('<br>');
+		
+		?>	
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+	
+	
+	<script type="text/javascript">
+
+	$("document").ready(function(source){
+
+		$('#select-all').click(function(event) {   
+ 			if(this.checked) {
+       		 // Iterate each checkbox
+        		$(':checkbox').each(function() {
+            	this.checked = true;                        
+        		});
+  			}
+  			else {
+    			$(':checkbox').each(function() {
+          		this.checked = false;
+      			});
+  			}
+
+		});
+
+		
+
+	$(document).on('change','input[type="checkbox"]' ,function(e) {
+
+    	if(this.id=="select-all") {
+        	if(this.checked) $('#id_fiscal').val(this.value);
+        	else $('#id_fiscal').val("");
+    	}
+	});
+
+	
+
+	function mostrartabla() {
+
+					//var cod1 = document.getElementById('Cursos').value;
+					//var cod2 = document.getElementById('Curso').value;
+
+  			$.get('Curso/Cursos_ajax', function(datos){
+				
+				//Se parsea a JSON
+				datos2=JSON.parse(datos);
+
+				//Vacia la tabla
+				document.getElementById("sacardatos").innerHTML="";
+
+
+				//Mete los títulos de la tabla
+
+				$("#sacardatos").append("<tr><td></td><td><strong>ID_Curso</strong></td><td><strong>COD_Curso</strong></td>")
+
+						//Mete los datos en la tabla
+						$.each(datos2,function(indice,valor){
+						
+		
+					$("#sacardatos").append("<tr><td><input type='checkbox' name='checkbox[]' id='"+valor.ID_Curso+"'onClick='gurdar(this.id)'></td><td><a href=Curso/editar/"+valor.ID_Curso+">"+valor.ID_Curso+"</a></td><td><a href=Curso/editar/"+valor.ID_Curso+">"+valor.COD_Curso+"</a></td>")
+						});
+			});
+	}
+
+					
+					mostrartabla();
+
+	});
+
+	</script>
+	<hr>
+	<input type='checkbox' name='select-all' id='select-all' value="hola">
+	<table id='sacardatos'>
+	</table>
+	<input type="submit" name="BtnEliminar" value="Eliminar"/>
+
+	<br>
+
+	<hr>
+
+	<br>	
 </div>
+
+
+
+		
+
+
+

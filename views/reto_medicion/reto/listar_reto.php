@@ -1,7 +1,7 @@
 <div>
 <?php
-		printf('Gestión de COMPETENCIAS<br>');
-		printf('<br>');
+		printf('Gestión de CENTROS<br>');
+		printf('--------------------------------------------------------------------<br>');
 		?>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -10,7 +10,7 @@
 			
 		
 	$("document").ready(function(source){//Función general
-		/*
+
 		$('#select-all').click(function(event) {   //Seleccionar todos los check-box
 					 	
 			if(this.checked) { 
@@ -25,7 +25,7 @@
 				});
 			}
 		});
-	*/
+
 				
 		
 
@@ -34,7 +34,7 @@
 		function mostrartabla(){
 
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('Competencia/Competencias_ajax',function(datos){
+		  	$.get('Reto/Retos_ajax',function(datos){
 				
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
@@ -44,7 +44,7 @@
 				
 				//Mete los títulos de la tabla
 				$("#sacardatos").append(
-						"<tr><td><strong>ID_Competencia</strong></td><td><strong>DESC_Competencia</strong></td><td><strong>Mal</strong></td><td><strong>Regular</strong></td><td><strong>Bien</strong></td><td><strong>Excelente</strong></td></tr>"
+						"<tr><td></td><td><strong>ID_Reto</strong></td><td><strong>COD_Reto</strong></td><td><strong>DESC_Reto</strong></td></tr>"
 				)
 
 
@@ -53,7 +53,7 @@
 				$.each(datos2,function(indice,valor){
 
 					$("#sacardatos").append( 
-						"<tr><td><a href=Competencia/editar/"+valor.ID_Competencia+">"+valor.ID_Competencia+"</a></td><td><a href=Competencia/editar/"+valor.ID_Competencia+">"+valor.DESC_Competencia+"</a></td><td><a href=Competencia/editar/"+valor.ID_Competencia+">"+valor.Mal+"</a></td><td><a href=Competencia/editar/"+valor.ID_Competencia+">"+valor.Regular+"</a></td><td><a href=Competencia/editar/"+valor.ID_Competencia+">"+valor.Bien+"</a></td><td><a href=Competencia/editar/"+valor.ID_Competencia+">"+valor.Excelente+"</a></td>"
+						"<tr><td><input type='checkbox' name='checkbox[]' id='"+valor.ID_Reto+"'onClick='gurdar(this.id)'></td><td><a href=Reto/editar/"+valor.ID_Reto+">"+valor.ID_Reto+"</a></td><td><a href=Reto/editar/"+valor.ID_Reto+">"+valor.COD_Reto+"</a></td><td><a href=Reto/editar/"+valor.ID_Reto+">"+valor.DESC_Reto+"</a></td>"
 					)
 				});
 			});
@@ -64,12 +64,12 @@
 
 	</script>
 
-	<!-- <input type='checkbox' name='select-all' id='select-all' value="hola"> -->
+	<input type='checkbox' name='select-all' id='select-all' value="hola">
 	
 	<table id='sacardatos'>
 	</table>
 
-	<!-- <input type="submit" name="BtnEliminar" value="Eliminar"/> -->
+	<input type="submit" name="BtnEliminar" value="Eliminar"/>
 
 	<br>
 	<hr>

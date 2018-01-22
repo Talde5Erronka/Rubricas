@@ -1,43 +1,80 @@
 <div>
 <?php
-		printf('Gestión de GRUPOCOMPETENCIAS');
-		if ($grupocompetencias){
-			printf('<table>
-				<thead>			
-				<tr>
-					<td>
-						<label for="select_all"></label>
-						<input id="select_all" type="checkbox">
-					</td>
-				');
-			$primergrupocompetencia = $grupocompetencias->result()[0];
-			foreach ($primergrupocompetencia as $key => $value) {
-				printf('<th id="%s">
-						<span>%s</span>
-					</th>',$key,$key);
+		printf('Gestión de GRUPOCOMPETENCIAS<br>');
+		printf('<br>');
+		?>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+		<script type="text/javascript">
+			
+		
+	$("document").ready(function(source){//Función general
+		/*
+		$('#select-all').click(function(event) {   //Seleccionar todos los check-box
+					 	
+			if(this.checked) { 
+				$(':checkbox').each(function() {
+					   this.checked = true;                       
+				});
 			}
-			printf(/*'<th>Acciones</th>*/'</tr>
-			</thead>
-			<tbody>');
-			foreach ($grupocompetencias->result() as $grupocompetencia) {
-				printf('<tr>
-					<th>
-					<label for="select_%d"></label>
-					<input id="select_%d" type="checkbox">
-					</th>',$grupocompetencia->ID_Grupo_Competencia,$grupocompetencia->ID_Grupo_Competencia);
-				foreach ($grupocompetencia as $detalle) {
-					printf('<td>
-					<a href="GrupoCompetencia/editar/%s">%s</a>
-					</td>',$grupocompetencia->ID_Grupo_Competencia,$detalle);
-				}
-				/*$url = "'grupocompetencia/borrar/".$grupocompetencia->ID_Grupo_Competencia."'"; 
-				printf('<td><input type="button" onclick="location.href=%s" value="Borrar"></td>',$url);
-				printf('</tr>');*/
-			}	
-			printf('</tbody></table>');
-		}
-		else{
-				printf('No hay Registros');
-		}
-		?>		
+
+			else {
+				$(':checkbox').each(function() {
+					    this.checked = false;
+				});
+			}
+		});
+	*/
+				
+		
+
+//FUNCIÓN DE LISTAR LA TABLA----------------------------------------------------
+
+		function mostrartabla(){
+
+			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
+		  	$.get('GrupoCompetencia/GrupoCompetencias_ajax',function(datos){
+				
+				//Se parsea a JSON
+				datos2=JSON.parse(datos);
+
+				//Vacia la tabla
+				document.getElementById("sacardatos").innerHTML="";
+				
+				//Mete los títulos de la tabla
+				$("#sacardatos").append(
+						"<tr><td><strong>ID_Grupo_Competencia</strong></td><td><strong>DESC_Grupo_Competencia</strong></td></tr>"
+				)
+
+
+
+				//Mete los datos en la tabla
+				$.each(datos2,function(indice,valor){
+
+					$("#sacardatos").append( 
+						"<tr><td><a href=GrupoCompetencia/editar/"+valor.ID_Grupo_Competencia+">"+valor.ID_Grupo_Competencia+"</a></td><td><a href=GrupoCompetencia/editar/"+valor.ID_Grupo_Competencia+">"+valor.DESC_Grupo_Competencia+"</a></td>"
+					)
+				});
+			});
+	};
+
+	mostrartabla(); //EJECUTA LA FUNCIÓN	
+});
+
+	</script>
+
+	<!-- <input type='checkbox' name='select-all' id='select-all' value="hola"> -->
+	
+	<table id='sacardatos'>
+	</table>
+
+	<!-- <input type="submit" name="BtnEliminar" value="Eliminar"/> -->
+
+	<br>
+	<hr>
+
+	<br>
+
+
 </div>

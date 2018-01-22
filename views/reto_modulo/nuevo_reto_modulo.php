@@ -2,11 +2,10 @@
 $form = array(
 	'name' => 'form_reto_modulo'
 	);
-
 $ID_UAdmin = array(	
 	'name' => 'ID_UAdmin',
-	'placeholder' => 'ID del UAdmin',
-	'maxlength' => 100,
+	'placeholder' => 'ID_UAdmin',
+	'maxlength' => 2,
 	'size' => 20,
 	'required' => 1
 	);
@@ -48,7 +47,21 @@ $IN_EAbierta = array(
 		$ID_Reto = array(
     		0         => 'No hay Retos'
 		);
-	}	
+	}
+
+	/*
+	if ($usuarios){
+		$ID_Usuario = array();
+		foreach ($usuarios->result() as $usuario) {
+			$ID_Usuario[$usuario->ID_Usuario] = $usuario->Nombre;
+		}	
+	}
+	else{
+		$ID_Usuario = array(
+    		0         => 'No hay UAdmins'
+		);
+	}
+	*/	
 
 ?>
 
@@ -67,12 +80,18 @@ $IN_EAbierta = array(
 	echo form_dropdown('ID_Reto', $ID_Reto, 1);
 	?>
 	<br>
-
+	
+	<!--
 	<?php echo form_label('UAdmin: ','ID_UAdmin'); ?>
 	<?php
 	//DESPLEGABLE DE UDADMIN
-	echo form_dropdown('ID_UAdmin', $ID_UAdmin, 1);
+	echo form_dropdown('ID_UAdmin', $ID_Usuario, 1);
 	?>
+	<br>
+	-->
+	
+	<?php echo form_label('UAdmin: ','ID_UAdmin'); ?>
+	<?php echo form_input($ID_UAdmin); ?>
 	<br>
 
 	<?php echo form_label('IN Extendido: ','IN_Extendido'); ?>

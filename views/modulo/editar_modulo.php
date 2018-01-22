@@ -39,13 +39,13 @@ if ($ciclos){
 
 <div>
 	<?php echo form_open('Modulo/actualizar/'.$modulos->result()[0]->ID_Modulo);?>
+	
 	<?php echo form_label('Ciclo: ','ID_Ciclo'); ?>
 	<?php
-	//DESPLEGABLE DE CENTRO
+	//DESPLEGABLE DE CICLO
 	echo form_dropdown('ID_Ciclo', $ID_Ciclo, $ciclos->result()[0]->ID_Ciclo);
 	?>
 	<br>
-
 
 	<?php echo form_label('Código de Modulo: ','COD_Modulo'); ?>
 	<?php echo form_input($COD_Modulo); ?>

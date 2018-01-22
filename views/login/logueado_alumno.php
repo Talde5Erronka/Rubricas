@@ -1,7 +1,8 @@
 <div>
 <?php
-		printf('Gestión de USUARIOS_MODULOS<br>');
+		printf('BIENVENIDO<br>');
 		printf('<br>');
+
 		?>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -35,27 +36,31 @@
 		function mostrartabla(){
 
 			//Coge el valor de los desplegables 
-			var cod1 = document.getElementById('Modulos').value;
-			var cod2 = document.getElementById('Usuarios').value;
-
+	
+			var cod = document.getElementById('Retos').value;
+			
+			
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('Usuario_modulo/filtrar_usuario_modulo',{ID_Modulo:cod1,ID_Usuario:cod2},function(datos){
+		  	$.get('../Login/filtrar_reto_alum',{ID_Reto:cod},function(datos){
+		  		
 
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
+
 
 				//Vacia la tabla
 				document.getElementById("sacardatos").innerHTML="";
 				
 				//Mete los títulos de la tabla
 				$("#sacardatos").append(
-						"<tr><td></td><td><strong>ID_Usuario_Modulo</strong></td><td><strong>DESC_Modulo</strong></td><td><strong>User</strong></td><td><strong>COD_Modulo</strong></td></tr>"
+						"<tr><td></td><td><strong>DNI</strong></td><td><strong>Nombre</strong></td><td><strong>Apellido</strong></td><td><strong>User</strong></td><td><strong>Email</strong></td></tr>"
 				)
 
 				//Mete los datos en la tabla
 				$.each(datos2,function(indice,valor){
+			
 					$("#sacardatos").append( 
-						"<tr><td><input type='checkbox' name='checkbox[]' id='"+valor.ID_Usuario_Modulo+"'onClick='gurdar(this.id)'></td><td><a href=Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.ID_Usuario_Modulo+"</a></td><td><a href=Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.DESC_Modulo+"</a></td><td><a href=Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.User+"</a></td><td><a href=Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.COD_Modulo+"</a></td>"
+						"<tr><td><input type='checkbox' name='checkbox[]' id='"+valor.ID_Usuario+"'onClick='gurdar(this.id)'></td><td><a href=Usuario/editar/"+valor.ID_Usuario+">"+valor.Dni+"</a></td><td><a href=Usuario/editar/"+valor.ID_Usuario+">"+valor.Nombre+"</a></td><td><a href=Usuario/editar/"+valor.ID_Usuario+">"+valor.Apellidos+"</a></td><td><a href=Usuario/editar/"+valor.ID_Usuario+">"+valor.User+"</a></td><td><a href=Usuario/editar/"+valor.ID_Usuario+">"+valor.Email+"</a></td>"
 					)
 				});
 			});
@@ -64,29 +69,28 @@
 		
 
 //DESPLEGABLES------------------------------------------------------------
+			
+		<?php 
+			if(isset($_COOKIE["PersonaLogueada"])) {
+				$cookie=$_COOKIE['PersonaLogueada'];
+				echo($cookie);
+			}
+		?>
 
-			//Desplegable MODULOS
-			$.get('Modulo/Modulos_ajax', function(datos){
+		var cookie = <?php echo $cookie;?>
+
+			
+
+			//Desplegable Retos
+			$.get('../Reto/Retos_alumno',{ID_Usuario:cookie}, function(datos){
 						
 				datos2=JSON.parse(datos);
 
 				$.each(datos2,function(indice,valor){
 						
-						$("#Modulos").append('<option value="'+valor.ID_Modulo +'">'+valor.DESC_Modulo	+'</option>')
+						$("#Retos").append('<option value="'+valor.ID_Reto +'">'+valor.DESC_Reto	+'</option>')
 				});
-				
-			});
 
-			//Desplegable USUARIOS
-			$.get('Usuario/Usuarios_ajax', function(datos3){
-						
-				datos4=JSON.parse(datos3);
-
-				$.each(datos4,function(indice,valor){
-						
-						$("#Usuarios").append('<option value="'+valor.ID_Usuario +'">'+valor.User	+'</option>')
-				});
-				
 			});
 			
 			//Botón para actualizar los datos
@@ -99,16 +103,10 @@
 
 	</script>
 
-	<label>Modulos: </label>
-	<select id="Modulos">
-		<option value="">Todos los Modulos</option>
+	<label>Retos: </label>
+	<select id="Retos">
+		<option value="">Todos los Retos</option>
 			option	
-	</select>
-
-	<label>Usuarios: </label>
-	<select id="Usuarios">
-		<option value="">Todos los Usuarios</option>
-		option
 	</select>
 
 	<button id="boton" >Mostrar</button>
@@ -126,5 +124,7 @@
 
 	<br>
 
-
 </div>
+
+
+

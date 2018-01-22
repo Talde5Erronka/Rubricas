@@ -1,122 +1,129 @@
 <div>
 <?php
-		printf('Gestión de Usuarios de los Equipos<br>');
-		printf('--------------------------------------------------------------------<br>');
-		
-		//  CENTRO  EQUIPO
-		//  CURSO   USUARIO
-		//  CICLO   EQUIPO_USUARIO
-
-
-		//FILTROS DE CURSO Y GRUPO
-		if ($equipos){
-			$ID_Equipo = array(
-	    		0         => 'Todos los Equipos'
-			);
-			foreach ($equipos->result() as $equipo) {
-				$ID_Equipo[$equipo->ID_Equipo] = $equipo->DESC_Equipo;
-			}	
-		}
-		else{
-			$ID_Equipo = array(
-	    		0         => 'Todos los Equipos'
-			);
-		}
-
-		if ($usuarios){
-			$ID_Usuario = array(
-	    		0         => 'Todos los Usuarios'
-			);
-			foreach ($usuarios->result() as $usuario) {
-				$ID_Usuario[$usuario->ID_Usuario] = $usuario->User;
-			}	
-		}
-		else{
-			$ID_Usuario = array(
-	    		0         => 'Todos los Usuarios'
-			);
-		}	
-
+		printf('Gestión de EQUIPO_USUARIO<br>');
+		printf('<br>');
 		?>
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+		<script type="text/javascript">
+			
+		
+	$("document").ready(function(source){//Función general
 
-		<div>
-			<?php echo form_open('Equipo_usuario/filtrar_equipo_usuario');?>
-			<?php echo form_label('Equipo: ','ID_Equipo'); ?>
-			<?php
-			//DESPLEGABLE DE CENTRO
-			echo form_dropdown('ID_Equipo', $ID_Equipo);
-			?>
-			<?php echo form_label('Usuario: ','ID_Usuario'); ?>
-			<?php
-			//DESPLEGABLE DE CURSOS
-			echo form_dropdown('ID_Usuario', $ID_Usuario);
-			?>
-			<?php echo form_submit('Filtrar','Filtrar'); ?>
-			<?php echo form_close();?>
-		</div>
-
-		<?php
-		printf('--------------------------------------------------------------------<br>');	
-
-
-		//TABLA DE RESULTADOS DEL LISTADO	
-		if ($equipos_usuarios){
-			printf('<table>
-				<thead>			
-				<tr>
-					<td>
-						<label for="select_all"></label>
-						<input id="select_all" type="checkbox">
-					</td>
-				');
-			$primerequipo_usuario = $equipos_usuarios->result()[0];
-			foreach ($primerequipo_usuario as $key => $value) {
-				printf('<th id="%s">
-						<span>%s</span>
-					</th>',$key,$key);
+		$('#select-all').click(function(event) {   //Seleccionar todos los check-box
+					 	
+			if(this.checked) { 
+				$(':checkbox').each(function() {
+					   this.checked = true;                       
+				});
 			}
-			printf('<th>Acciones</th></tr>
-			</thead>
-			<tbody>');
-			foreach ($equipos_usuarios->result() as $equipo_usuario) {
-				printf('<tr>
-					<th>
-					<label for="select_%d"></label>
-					<input id="select_%d" type="checkbox">
-					</th>',$equipo_usuario->ID_Equipo_Alumno,$equipo_usuario->ID_Equipo_Alumno);
-				//Paso el objeto stdClass a Array para modificar COD_Equipo y COD_Usuario
-				//$equipo_usuarioArray = get_object_vars($equipo_usuario);
-				//var_dump($equipo_usuario['ID_usuario']);
-				foreach ($equipo_usuario as $detalle) {
-					//Para usuario y Equipo hay que sacar su COD_CENTRO y COD_CURSO
-					if($filtrado==0){
-						printf('<td>
-						<a href="Equipo_usuario/editar/%s">%s</a>
-						</td>',$equipo_usuario->ID_Equipo_Alumno,$detalle);
-					}
-					else{
-						printf('<td>
-						<a href="editar/%s">%s</a>
-						</td>',$equipo_usuario->ID_Equipo_Alumno,$detalle);
-					}
-				}
 
-				if($filtrado==0){
-					$url = "'equipo_usuario/borrar/".$equipo_usuario->ID_Equipo_Alumno."'"; 
-				}
-				else{
-					$url = "'borrar/".$equipo_usuario->ID_Equipo_Alumno."'"; 
-				}
-				printf('<td><input type="button" onclick="location.href=%s" value="Borrar"></td>',$url);
-				printf('</tr>');
-			}	
-			printf('</tbody></table>');
-		}
-		else{
-				printf('No hay Registros');
-		}
+			else {
+				$(':checkbox').each(function() {
+					    this.checked = false;
+				});
+			}
 
-		printf('--------------------------------------------------------------------<br>');	
-		?>		
+		});
+
+				
+		
+
+//FUNCIÓN DE LISTAR LA TABLA----------------------------------------------------
+
+		function mostrartabla(){
+
+			//Coge el valor de los desplegables 
+			var cod1 = document.getElementById('Equipos').value;
+			var cod2 = document.getElementById('Usuarios').value;
+			
+			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
+		  	$.get('Equipo_usuario/filtrar_equipo_usuario',{ID_Equipo:cod1,ID_Usuario:cod2},function(datos){
+				//Se parsea a JSON
+				datos2=JSON.parse(datos);
+
+				//Vacia la tabla
+				document.getElementById("sacardatos").innerHTML="";
+				
+				//Mete los títulos de la tabla
+				$("#sacardatos").append(
+						"<tr><td></td><td><strong>ID_Equipo_Alumno</strong></td><td><strong>DESC_Equipo</strong></td><td><strong>User</strong></td><td><strong>COD_Rol</strong></td></tr>"
+				)
+
+				//Mete los datos en la tabla
+				$.each(datos2,function(indice,valor){
+					$("#sacardatos").append( 
+						"<tr><td><input type='checkbox' name='checkbox[]' id='"+valor.ID_Equipo_Alumno+"'onClick='gurdar(this.id)'></td><td><a href=Equipo_usuario/editar/"+valor.ID_Equipo_Alumno+">"+valor.ID_Equipo_Alumno+"</a></td><td><a href=Equipo_usuario/editar/"+valor.ID_Equipo_Alumno+">"+valor.DESC_Equipo+"</a></td><td><a href=Equipo_usuario/editar/"+valor.ID_Equipo_Alumno+">"+valor.User+"</a></td></td><td><a href=Equipo_usuario/editar/"+valor.ID_Equipo_Alumno+">"+valor.COD_Rol+"</a></td>"
+					)
+				});
+			});
+						
+};
+		
+
+//DESPLEGABLES------------------------------------------------------------
+
+			//Desplegable CENTROS
+			$.get('Equipo/Equipos_ajax', function(datos){
+						
+				datos2=JSON.parse(datos);
+
+				$.each(datos2,function(indice,valor){
+						
+						$("#Equipos").append('<option value="'+valor.ID_Equipo +'">'+valor.DESC_Equipo	+'</option>')
+				});
+				
+			});
+
+			//Desplegable Usuarios
+			$.get('Usuario/Usuarios_ajax', function(datos3){
+						
+				datos4=JSON.parse(datos3);
+
+				$.each(datos4,function(indice,valor){
+						
+						$("#Usuarios").append('<option value="'+valor.ID_Usuario +'">'+valor.User	+'</option>')
+				});
+				
+			});
+			
+			//Botón para actualizar los datos
+			$("#boton").click(function(){
+					mostrartabla();
+			});
+							
+			mostrartabla(); //EJECUTA LA FUNCIÓN
+});
+
+	</script>
+
+	<label>Equipos: </label>
+	<select id="Equipos">
+		<option value="">Todos los Equipos</option>
+			option	
+	</select>
+
+	<label>Usuarios: </label>
+	<select id="Usuarios">
+		<option value="">Todos los Tipos de Usuarios</option>
+		option
+	</select>
+
+	<button id="boton" >Mostrar</button>
+
+	<hr>
+	<input type='checkbox' name='select-all' id='select-all' value="hola">
+	
+	<table id='sacardatos'>
+	</table>
+
+	<input type="submit" name="BtnEliminar" value="Eliminar"/>
+
+	<br>
+	<hr>
+
+	<br>
+
+
 </div>
