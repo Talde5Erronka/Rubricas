@@ -47,7 +47,30 @@ class GrupoCompetencia_model extends CI_Model{
 		$this->db->where('ID_GrupoCompetencia',$id);
 		$this->db->delete('GrupoCompetencia');
 	}
-	*/	
+	*/
+
+	public function obtener_grupocompetencia_ajax(){
+
+		include ("conexion_2.php");
+		
+		if(!$con) {
+		    echo "No se pudo conectar a la base de datos";
+		  }
+
+
+		$sql = "SELECT * FROM GrupoCompetencia";
+		$result = $con->query($sql);
+
+		$rowdata=array();
+		$i=0;
+				while ($row = $result->fetch_array())
+				{
+					
+					$rowdata[$i]=$row;
+					$i++;			
+				}
+		echo json_encode($rowdata);
+	}	
 }
 
 

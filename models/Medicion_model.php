@@ -76,18 +76,53 @@ class Medicion_model extends CI_Model{
 	}
 	*/
 
-	public function filtrar_medicion_valores($filtro){
-		$query = "SELECT ID_Medicion, DESC_TUsuario, COD_Medicion, DESC_Medicion FROM Medicion, TUsuario WHERE Medicion.ID_TUsuario=TUsuario.ID_TUsuario";
-		if ($filtro['ID_TUsuario'] != 0){
-			$query = $query . " and TUsuario.ID_TUsuario = " . $filtro['ID_TUsuario'];
+	public function filtrar_medicion_valores($ID_TUsuario){
+		include("conexion_2.php");
+		if(!$con) {
+	    	echo "No se pudo conectar a la base de datos";
+	  	}
+
+		if ($ID_TUsuario != '') {
+			$where = "and TUsuario.ID_TUsuario='$ID_TUsuario'";
 		}
+		else{
+			$where = "";
+		}
+
+		$sql = "SELECT * FROM Medicion, TUsuario WHERE Medicion.ID_TUsuario=TUsuario.ID_TUsuario $where";
+
+		$result = $con->query($sql);
+		$rowdata=array();
+		$i=0;
+			while ($row = $result->fetch_array())
+			{
+				$rowdata[$i]=$row;
+				$i++;			
+			}
+		echo json_encode($rowdata);
+	}
+
+	public function obtener_mediciones_ajax(){
+
+		include ("conexion_2.php");
 		
-		$query = $this->db->query($query);		
-		if ($query->num_rows() > 0){
-			return $query;
-		}else{
-			return false;
-		}
+		if(!$con) {
+		    echo "No se pudo conectar a la base de datos";
+		  }
+
+
+		$sql = "SELECT * FROM Medicion";
+		$result = $con->query($sql);
+
+		$rowdata=array();
+		$i=0;
+				while ($row = $result->fetch_array())
+				{
+					
+					$rowdata[$i]=$row;
+					$i++;			
+				}
+		echo json_encode($rowdata);
 	}		
 }
 

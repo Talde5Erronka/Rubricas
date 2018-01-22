@@ -45,7 +45,29 @@ class Tusuario_model extends CI_Model{
 		public function borrar_tusuario($id){
 		$this->db->where('ID_TUsuario',$id);
 		$this->db->delete('TUsuario');
-	}	
+	}
+
+	public function obtener_tusuarios_ajax(){
+		include ("conexion_2.php");
+		
+		if(!$con) {
+		    echo "No se pudo conectar a la base de datos";
+		  }
+
+
+		$sql = "SELECT * FROM TUsuario";
+		$result = $con->query($sql);
+
+		$rowdata=array();
+		$i=0;
+				while ($row = $result->fetch_array())
+				{
+					
+					$rowdata[$i]=$row;
+					$i++;			
+				}
+		echo json_encode($rowdata);
+	}
 }
 
 

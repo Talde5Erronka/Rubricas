@@ -82,25 +82,78 @@ class Medicion_GrupoCompetencia_Competencia_model extends CI_Model{
 	}
 	*/
 
-	public function filtrar_medicion_grupocompetencia_competencia_valores($filtro){
-		$query = "SELECT ID_GrupoCompetencia_Competencia, ID_Grupo_Competencia, DESC_Grupo_Competencia, DESC_Medicion,Competencia.ID_Competencia, DESC_Competencia, Porcentaje FROM Medicion_GrupoCompetencia_Competencia, Medicion, GrupoCompetencia, Competencia WHERE Medicion_GrupoCompetencia_Competencia.ID_GrupoCompetencia=GrupoCompetencia.ID_Grupo_Competencia and Medicion_GrupoCompetencia_Competencia.ID_Medicion= Medicion.ID_Medicion and Medicion_GrupoCompetencia_Competencia.ID_Competencia=Competencia.ID_Competencia";
-		if ($filtro['ID_Medicion'] != 0){
-			$query = $query . " and Medicion.ID_Medicion = " . $filtro['ID_Medicion'];
+	public function filtrar_medicion_grupocompetencia_competencia_valores($ID_Medicion,$ID_Grupo_Competencia,$ID_Competencia){
+		include("conexion_2.php");
+		if(!$con) {
+	    	echo "No se pudo conectar a la base de datos";
+	  	}
+
+		if ($ID_Grupo_Competencia == '' and $ID_Medicion != '' and $ID_Competencia == '') {
+			$where = "and Medicion.ID_Medicion='$ID_Medicion'";
 		}
-		if ($filtro['ID_GrupoCompetencia'] != 0){
-			$query = $query . " and GrupoCompetencia.ID_GrupoCompetencia = " . $filtro['ID_GrupoCompetencia'];
+		elseif($ID_Grupo_Competencia != '' and $ID_Medicion == '' and $ID_Competencia == ''){
+			$where = "and GrupoCompetencia.ID_Grupo_Competencia='$ID_Grupo_Competencia'";
 		}
-		if ($filtro['ID_Competencia'] != 0){
-			$query = $query . " and Competencia.ID_Competencia = " . $filtro['ID_Competencia'];
-		}		
-		$query = $this->db->query($query);		
-		if ($query->num_rows() > 0){
-			return $query;
-		}else{
-			return false;
+		elseif($ID_Grupo_Competencia == '' and $ID_Medicion == '' and $ID_Competencia != ''){
+			$where = "and Competencia.ID_Competencia='$ID_Competencia'";
 		}
+
+
+
+		elseif($ID_Grupo_Competencia != '' and $ID_Medicion != '' and $ID_Competencia == ''){
+			$where = "and GrupoCompetencia.ID_Grupo_Competencia='$ID_Grupo_Competencia' and Medicion.ID_Medicion='$ID_Medicion'";
+		}
+		elseif($ID_Grupo_Competencia != '' and $ID_Medicion == '' and $ID_Competencia != ''){
+			$where = "and GrupoCompetencia.ID_Grupo_Competencia='$ID_Grupo_Competencia' and Competencia.ID_Competencia='$ID_Competencia'";
+		}
+		elseif($ID_Grupo_Competencia == '' and $ID_Medicion != '' and $ID_Competencia != ''){
+			$where = "and Medicion.ID_Medicion='$ID_Medicion' and Competencia.ID_Competencia='$ID_Competencia'";
+		}
+
+
+
+		elseif($ID_Grupo_Competencia == '' and $ID_Medicion == '' and $ID_Competencia == ''){
+			$where = "";
+		}
+		else{
+			$where = "and GrupoCompetencia.ID_Grupo_Competencia='$ID_Grupo_Competencia' and Medicion.ID_Medicion='$ID_Medicion' and Competencia.ID_Competencia='$ID_Competencia'";
+		}
+
+		$sql = "SELECT * FROM Medicion_GrupoCompetencia_Competencia, Medicion, GrupoCompetencia, Competencia WHERE Medicion_GrupoCompetencia_Competencia.ID_Medicion=Medicion.ID_Medicion and Medicion_GrupoCompetencia_Competencia.ID_GrupoCompetencia= GrupoCompetencia.ID_Grupo_Competencia and Medicion_GrupoCompetencia_Competencia.ID_Competencia= Competencia.ID_Competencia $where";
+
+		$result = $con->query($sql);
+		$rowdata=array();
+		$i=0;
+			while ($row = $result->fetch_array())
+			{
+				$rowdata[$i]=$row;
+				$i++;			
+			}
+		echo json_encode($rowdata);
 	}	
 
+	public function obtener_medicion_grupocompetencia_competencia_ajax(){
+
+		include ("conexion_2.php");
+		
+		if(!$con) {
+		    echo "No se pudo conectar a la base de datos";
+		  }
+
+
+		$sql = "SELECT * FROM Medicion_GrupoCompetencia_Competencia";
+		$result = $con->query($sql);
+
+		$rowdata=array();
+		$i=0;
+				while ($row = $result->fetch_array())
+				{
+					
+					$rowdata[$i]=$row;
+					$i++;			
+				}
+		echo json_encode($rowdata);
+	}	
 	
 }
 

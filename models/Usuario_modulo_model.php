@@ -80,20 +80,60 @@ class Usuario_modulo_model extends CI_Model{
 		$this->db->delete('Usuario_Modulo');
 	}
 
-	public function filtrar_usuario_modulo_valores($filtro){
-		$query = "SELECT ID_Usuario_Modulo, DESC_Modulo, Nombre FROM Usuario_Modulo, Usuario, Modulo WHERE Usuario_Modulo.ID_Modulo=Modulo.ID_Modulo and Usuario_Modulo.ID_Usuario= Usuario.ID_Usuario";
-		if ($filtro['ID_Usuario'] != 0){
-			$query = $query . " and Usuario.ID_Usuario = " . $filtro['ID_Usuario'];
+	public function filtrar_usuario_modulo_valores($ID_Modulo,$ID_Usuario){
+		include("conexion_2.php");
+		if(!$con) {
+	    	echo "No se pudo conectar a la base de datos";
+	  	}
+
+		if ($ID_Usuario == '' and $ID_Modulo != '') {
+			$where = "and Modulo.ID_Modulo='$ID_Modulo'";
 		}
-		if ($filtro['ID_Modulo'] != 0){
-			$query = $query . " and Modulo.ID_Modulo = " . $filtro['ID_Modulo'];
-		}		
-		$query = $this->db->query($query);		
-		if ($query->num_rows() > 0){
-			return $query;
-		}else{
-			return false;
+		elseif($ID_Usuario != '' and $ID_Modulo == ''){
+			$where = "and Usuario.ID_Usuario='$ID_Usuario'";
 		}
+		elseif($ID_Usuario == '' and $ID_Modulo == ''){
+			$where = "";
+		}
+		else{
+			$where = "and Modulo.ID_Modulo='$ID_Modulo' and Usuario.ID_Usuario='$ID_Usuario'";
+		}
+
+		$sql = "SELECT * FROM Usuario_Modulo, Modulo, Usuario WHERE Usuario_Modulo.ID_Modulo=Modulo.ID_Modulo and Usuario_Modulo.ID_Usuario= Usuario.ID_Usuario $where";
+
+		$result = $con->query($sql);
+		$rowdata=array();
+		$i=0;
+			while ($row = $result->fetch_array())
+			{
+				$rowdata[$i]=$row;
+				$i++;			
+			}
+		echo json_encode($rowdata);
+	}
+
+
+	public function obtener_usuarios_modulos_ajax(){
+
+		include ("conexion_2.php");
+		
+		if(!$con) {
+		    echo "No se pudo conectar a la base de datos";
+		  }
+
+
+		$sql = "SELECT * FROM Usuario_Modulo";
+		$result = $con->query($sql);
+
+		$rowdata=array();
+		$i=0;
+				while ($row = $result->fetch_array())
+				{
+					
+					$rowdata[$i]=$row;
+					$i++;			
+				}
+		echo json_encode($rowdata);
 	}	
 
 	

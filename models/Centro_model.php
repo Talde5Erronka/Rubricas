@@ -71,8 +71,6 @@ class Centro_model extends CI_Model{
 					$i++;			
 				}
 		echo json_encode($rowdata);
-
-
 	}
 
 }

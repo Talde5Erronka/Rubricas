@@ -9,6 +9,14 @@ class Reto_Modulo_model extends CI_Model{
 	}
 
 	public function nuevo_reto_modulo($datos){
+		/*$datosBD = array(
+			'ID_Reto' => $this->input->post('ID_Reto'),
+			'ID_Modulo' => $this->input->post('ID_Modulo'),
+			'ID_UAdmin' => $this->input->post('ID_UAdmin'),
+			'IN_Extendido' => $this->input->post('IN_Extendido'),
+			'IN_EAbierta' => $this->input->post('IN_EAbierta')
+			);*/
+
 		$datosBD = array(
 			'ID_Reto' => $this->input->post('ID_Reto'),
 			'ID_Modulo' => $this->input->post('ID_Modulo'),
@@ -31,7 +39,7 @@ class Reto_Modulo_model extends CI_Model{
 
 	//Obtiene todo los Reto_Modulos, pero con los valores de las claves referenciadas
 	public function obtener_retos_modulos_valores(){
-		$query = "SELECT ID_Reto_Modulo, DESC_Modulo, COD_Reto, DESC_Reto, ID_UAdmin, IN_Extendido, IN_EAbierta FROM Reto_Modulo, Reto, Modulo, Usuario WHERE Reto_Modulo.ID_Modulo=Modulo.ID_Modulo and Reto_Modulo.ID_Reto= Reto.ID_Reto and Usuario.ID_Usuario=Reto_Modulo.ID_UAdmin";
+		$query = "SELECT ID_Reto_Modulo, DESC_Modulo, COD_Reto, DESC_Reto, ID_UAdmin, IN_Extendido, IN_EAbierta FROM Reto_Modulo, Reto, Modulo WHERE Reto_Modulo.ID_Modulo=Modulo.ID_Modulo and Reto_Modulo.ID_Reto= Reto.ID_Reto";
 		$query = $this->db->query($query);
 		if ($query->num_rows() > 0){
 			return $query;
@@ -52,7 +60,7 @@ class Reto_Modulo_model extends CI_Model{
 
 	//Obtiene Reto_Modulo por ID, pero con los valores de las claves referenciadas
 	public function obtener_reto_modulo_valores($id){
-		$query = "SELECT ID_Reto_Modulo, DESC_Modulo, COD_Reto, DESC_Reto, ID_UAdmin, IN_Extendido, IN_EAbierta FROM Reto_Modulo, Reto, Modulo, Usuario WHERE Reto_Modulo.ID_Modulo=Modulo.ID_Modulo and Reto_Modulo.ID_Reto= Reto.ID_Reto and Usuario.ID_Usuario=Reto_Modulo.ID_UAdmin and Reto_Modulo.ID_Reto_Modulo = ".$id;
+		$query = "SELECT ID_Reto_Modulo, DESC_Modulo, COD_Reto, DESC_Reto, ID_UAdmin, IN_Extendido, IN_EAbierta FROM Reto_Modulo, Reto, Modulo WHERE Reto_Modulo.ID_Modulo=Modulo.ID_Modulo and Reto_Modulo.ID_Reto= Reto.ID_Reto and Reto_Modulo.ID_Reto_Modulo = ".$id;
 		$query = $this->db->query($query);
 		if ($query->num_rows() > 0){
 			return $query;
@@ -78,26 +86,41 @@ class Reto_Modulo_model extends CI_Model{
 		$this->db->delete('Reto_Modulo');
 	}
 
-	public function filtrar_reto_modulo_valores($filtro){
-		$query = "SELECT ID_Reto_Modulo, DESC_Modulo, COD_Reto, DESC_Reto, ID_UAdmin, IN_Extendido, IN_EAbierta FROM Reto_Modulo, Reto, Modulo, Usuario WHERE Reto_Modulo.ID_Modulo=Modulo.ID_Modulo and Reto_Modulo.ID_Reto= Reto.ID_Reto and Usuario.ID_Usuario=Reto_Modulo.ID_UAdmin";
-		if ($filtro['ID_Reto'] != 0){
-			$query = $query . " and Reto.ID_Reto = " . $filtro['ID_Reto'];
-		}
-		if ($filtro['ID_Modulo'] != 0){
-			$query = $query . " and Modulo.ID_Modulo = " . $filtro['ID_Modulo'];
-		}		
-		$query = $this->db->query($query);		
-		if ($query->num_rows() > 0){
-			return $query;
-		}else{
-			return false;
-		}
-	}	
+	public function filtrar_reto_modulo_valores($ID_Reto,$ID_Modulo){
+		include("conexion_2.php");
+		if(!$con) {
+	    	echo "No se pudo conectar a la base de datos";
+	  	}
 
-	public function obtener_UAdmin($id, $datos){
-		
+		if ($ID_Modulo == '' and $ID_Reto != '') {
+			$where = "and Reto.ID_Reto='$ID_Reto'";
+		}
+		elseif($ID_Modulo != '' and $ID_Reto == ''){
+			$where = "and Modulo.ID_Modulo='$ID_Modulo'";
+		}
+		elseif($ID_Modulo == '' and $ID_Reto == ''){
+			$where = "";
+		}
+		else{
+			$where = "and Reto.ID_Reto='$ID_Reto' and Modulo.ID_Modulo='$ID_Modulo'";
+		}
+
+		$sql = "SELECT * FROM Reto_Modulo, Reto, Modulo WHERE Reto_Modulo.ID_Reto=Reto.ID_Reto and Reto_Modulo.ID_Modulo= Modulo.ID_Modulo $where";
+
+		$result = $con->query($sql);
+		$rowdata=array();
+		$i=0;
+			while ($row = $result->fetch_array())
+			{
+				$rowdata[$i]=$row;
+				$i++;			
+			}
+		echo json_encode($rowdata);
+
 	}
 
+
+	
 }
 
 

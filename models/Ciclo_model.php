@@ -107,7 +107,6 @@ class Ciclo_model extends CI_Model{
 				$i++;			
 			}
 		echo json_encode($rowdata);
-
 	}
 
 
@@ -132,9 +131,7 @@ class Ciclo_model extends CI_Model{
 					$i++;			
 				}
 		echo json_encode($rowdata);
-	}
-
-	
+	}	
 }
 
 

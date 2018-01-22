@@ -27,7 +27,7 @@ class Equipo_usuario_model extends CI_Model{
 		}
 	}
 
-			//Obtiene todo los Ciclos, pero con los valores de las claves referenciadas
+			//Obtiene todo los Equipo_Usuarios, pero con los valores de las claves referenciadas
 	public function obtener_equipos_usuarios_valores(){
 		$query = "SELECT ID_Equipo_Alumno, Equipo.DESC_Equipo, Usuario.User, COD_Rol FROM Usuario,Equipo_Usuario,Equipo  WHERE Usuario.ID_Usuario=Equipo_Usuario.ID_Usuario and Equipo.ID_Equipo=Equipo_Usuario.ID_Equipo";
 		$query = $this->db->query($query);
@@ -48,7 +48,7 @@ class Equipo_usuario_model extends CI_Model{
 		}
 	}
 
-		//Obtiene Ciclo por ID, pero con los valores de las claves referenciadas
+		//Obtiene Equipo_Usuario por ID, pero con los valores de las claves referenciadas
 	public function obtener_equipo_usuario_valores($id){
 		$query = "SELECT ID_Equipo_Alumno, Equipo.DESC_Equipo, Usuario.User, COD_Rol FROM Usuario,Equipo_Usuario,Equipo WHERE Usuario.ID_Usuario=Equipo_Usuario.ID_Usuario and Equipo.ID_Equipo=Equipo_Usuario.ID_Equipo  and  Equipo_Usuario.ID_Equipo_Alumno = ".$id;
 
@@ -76,24 +76,61 @@ class Equipo_usuario_model extends CI_Model{
 	}
 
 
-		//Obtiene Ciclo por ID, pero con los valores de las claves referenciadas
-		public function filtrar_equipo_usuario_valores($filtro){
-		$query = "SELECT ID_Equipo_Alumno, Equipo.DESC_Equipo, Usuario.User, COD_Rol FROM Usuario,Equipo_Usuario,Equipo WHERE Usuario.ID_Usuario=Equipo_Usuario.ID_Usuario and Equipo.ID_Equipo=Equipo_Usuario.ID_Equipo";
-		if ($filtro['ID_Equipo'] != 0){
-			$query = $query . " and Equipo_Usuario.ID_Equipo = " . $filtro['ID_Equipo'];
+		//Obtiene Equipo_Usuario por ID, pero con los valores de las claves referenciadas
+		public function filtrar_equipo_usuario_valores($ID_Equipo,$ID_Usuario){
+		include("conexion_2.php");
+		if(!$con) {
+	    	echo "No se pudo conectar a la base de datos";
+	  	}
+
+		if ($ID_Usuario == '' and $ID_Equipo != '') {
+			$where = "and Equipo.ID_Equipo='$ID_Equipo'";
 		}
-		if ($filtro['ID_Usuario'] != 0){
-			$query = $query . " and Usuario.ID_Usuario = " . $filtro['ID_Usuario'];
-		}	
-	
-		$query = $this->db->query($query);		
-		if ($query->num_rows() > 0){
-			return $query;
-		}else{
-			return false;
+		elseif($ID_Usuario != '' and $ID_Equipo == ''){
+			$where = "and Usuario.ID_Usuario='$ID_Usuario'";
 		}
+		elseif($ID_Usuario == '' and $ID_Equipo == ''){
+			$where = "";
+		}
+		else{
+			$where = "and Equipo.ID_Equipo='$ID_Equipo' and Usuario.ID_Usuario='$ID_Usuario'";
+		}
+
+		$sql = "SELECT * FROM Equipo_Usuario, Equipo, Usuario WHERE Equipo_Usuario.ID_Equipo=Equipo.ID_Equipo and Equipo_Usuario.ID_Usuario= Usuario.ID_Usuario $where";
+
+		$result = $con->query($sql);
+		$rowdata=array();
+		$i=0;
+			while ($row = $result->fetch_array())
+			{
+				$rowdata[$i]=$row;
+				$i++;			
+			}
+		echo json_encode($rowdata);
 	}
 
+	public function obtener_equipos_usuarios_ajax(){
+
+		include ("conexion_2.php");
+		
+		if(!$con) {
+		    echo "No se pudo conectar a la base de datos";
+		  }
+
+
+		$sql = "SELECT * FROM Equipo_Usuario";
+		$result = $con->query($sql);
+
+		$rowdata=array();
+		$i=0;
+				while ($row = $result->fetch_array())
+				{
+					
+					$rowdata[$i]=$row;
+					$i++;			
+				}
+		echo json_encode($rowdata);
+	}
 
 }
 

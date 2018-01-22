@@ -47,28 +47,28 @@ class Curso_model extends CI_Model{
 		$this->db->delete('Curso');
 	}
 
+
 	public function obtener_cursos_ajax(){
-
 		include ("conexion_2.php");
-		
-		if(!$con) {
-		    echo "No se pudo conectar a la base de datos";
-		  }
 
+		if(!$con) {
+	  		echo "No se pudo conectar a la base de datos";
+	  	}
 
 		$sql = "SELECT * FROM Curso";
 		$result = $con->query($sql);
 
 		$rowdata=array();
 		$i=0;
-				while ($row = $result->fetch_array())
-				{
-					
-					$rowdata[$i]=$row;
-					$i++;			
-				}
+		while ($row = $result->fetch_array())
+		{	
+			$rowdata[$i]=$row;
+			$i++;			
+		}
 		echo json_encode($rowdata);
 	}
+
+		
 }
 
 
