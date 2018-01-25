@@ -18,31 +18,7 @@ $contraseña = array(
 	'required' => 1
 	);
 
-$existe=false;
-	
-	//Si se han recibido el nombre y la contraseña metidos en el login
-	if($usuario_login && $contraseña_login){
-		
-		foreach ($usuarios->result() as $usuario2){
 
-			//Si el usuario y la contraseña coincide con los de alguna fila de la tabla en la base de datos
-			if($usuario2->User == $usuario_login && $usuario2->Password == $contraseña_login){
-				$existe = true;
-				break;
-			}
-		}
-
-		if($existe == true){
-			setcookie("PersonaLogueada", $usuario2->ID_Usuario);
-			if ($usuario2->ID_TUsuario == '2') {
-				redirect('Login/logueado_profesor');
-			} else if ($usuario2->ID_TUsuario == '3') {
-				redirect('Login/logueado_alumno');
-			} else {
-				redirect('Login/logueado_administrador');
-			}
-		}	
-	} 
 ?>
 <div>
 	<?php echo form_open('Login/verificar_login',$form);?>

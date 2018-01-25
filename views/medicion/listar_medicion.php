@@ -38,7 +38,7 @@
 			var cod1 = document.getElementById('TUsuarios').value;
 			
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('Medicion/filtrar_medicion',{ID_TUsuario:cod1},function(datos){
+		  	$.get('<?php echo base_url(); ?>index.php/Medicion/filtrar_medicion',{ID_TUsuario:cod1},function(datos){
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
 
@@ -64,7 +64,7 @@
 //DESPLEGABLES------------------------------------------------------------
 
 			//Desplegable RETOS
-			$.get('Tusuario/TUsuarios_ajax', function(datos){
+			$.get('<?php echo base_url(); ?>index.php/Tusuario/TUsuarios_ajax', function(datos){
 						
 				datos2=JSON.parse(datos);
 

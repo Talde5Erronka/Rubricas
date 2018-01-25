@@ -39,7 +39,7 @@
 			var cod2 = document.getElementById('Cursos').value;
 			
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('Ciclo/filtrar_ciclo',{ID_Centro:cod1,ID_Curso:cod2},function(datos){
+		  	$.get('<?php echo base_url(); ?>index.php/Ciclo/filtrar_ciclo',{ID_Centro:cod1,ID_Curso:cod2},function(datos){
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
 
@@ -65,7 +65,7 @@
 //DESPLEGABLES------------------------------------------------------------
 
 			//Desplegable CENTROS
-			$.get('Centro/Centros_ajax', function(datos){
+			$.get('<?php echo base_url(); ?>index.php/Centro/Centros_ajax', function(datos){
 						
 				datos2=JSON.parse(datos);
 
@@ -77,7 +77,7 @@
 			});
 
 			//Desplegable Cursos
-			$.get('Curso/Cursos_ajax', function(datos3){
+			$.get('<?php echo base_url(); ?>index.php/Curso/Cursos_ajax', function(datos3){
 						
 				datos4=JSON.parse(datos3);
 

@@ -39,7 +39,7 @@
 			var cod2 = document.getElementById('Modulos').value;
 			
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('Reto_modulo/filtrar_reto_modulo',{ID_Reto:cod1,ID_Modulo:cod2},function(datos){
+		  	$.get('<?php echo base_url(); ?>index.php/Reto_modulo/filtrar_reto_modulo',{ID_Reto:cod1,ID_Modulo:cod2},function(datos){
 		 	
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
@@ -68,7 +68,7 @@
 //DESPLEGABLES------------------------------------------------------------
 
 			//Desplegable RETOS
-			$.get('Reto/Retos_ajax', function(datos){
+			$.get('<?php echo base_url(); ?>index.php/Reto/Retos_ajax', function(datos){
 						
 				datos2=JSON.parse(datos);
 
@@ -79,7 +79,7 @@
 			});
 
 			//Desplegable Modulos
-			$.get('Modulo/Modulos_ajax', function(datos3){
+			$.get('<?php echo base_url(); ?>index.php/Modulo/Modulos_ajax', function(datos3){
 						
 				datos4=JSON.parse(datos3);
 

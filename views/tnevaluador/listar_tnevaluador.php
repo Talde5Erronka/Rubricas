@@ -33,7 +33,7 @@
 
 		function mostrartabla(){
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('Tnevaluador/Tnevaluadores_ajax',function(datos){
+		  	$.get('<?php echo base_url(); ?>index.php/Tnevaluador/Tnevaluadores_ajax',function(datos){
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
 

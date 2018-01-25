@@ -14,9 +14,9 @@
 
 		$('#select-all').click(function(event) {   //Seleccionar todos los check-box
 					 	
-			if(this.checked) { 
+			if(this.checked) {
 				$(':checkbox').each(function() {
-					   this.checked = true;                       
+					   this.checked = true;                 
 				});
 			}
 
@@ -30,18 +30,22 @@
 
 				
 		
+				alert('olah');
+				
+			
+			
 
 //FUNCIÓN DE LISTAR LA TABLA----------------------------------------------------
 
 		function mostrartabla(){
-
+		
 			//Coge el valor de los desplegables 
 	
 			var cod = document.getElementById('Retos').value;
-			
+		
 			
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('../Login/filtrar_reto_alum',{ID_Reto:cod},function(datos){
+		  	$.get('<?php echo base_url(); ?>index.php/Login/filtrar_reto_alum',{ID_Reto:cod},function(datos){
 		  		
 
 				//Se parsea a JSON
@@ -73,17 +77,16 @@
 		<?php 
 			if(isset($_COOKIE["PersonaLogueada"])) {
 				$cookie=$_COOKIE['PersonaLogueada'];
-				echo($cookie);
 			}
 		?>
-
-		var cookie = <?php echo $cookie;?>
-
-			
+		var cookie = <?php echo $cookie;?>;
 
 			//Desplegable Retos
-			$.get('../Reto/Retos_alumno',{ID_Usuario:cookie}, function(datos){
-						
+			$.get('<?php echo base_url(); ?>index.php/Equipo/miequipo',{ID_Usuario:cookie}, function(datos){
+				alert('da');
+				alert(datos);
+				alert('da');
+
 				datos2=JSON.parse(datos);
 
 				$.each(datos2,function(indice,valor){
@@ -92,6 +95,7 @@
 				});
 
 			});
+
 			
 			//Botón para actualizar los datos
 			$("#boton").click(function(){
