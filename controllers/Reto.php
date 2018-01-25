@@ -84,4 +84,6 @@ class Reto extends CI_Controller {
 
 		$this->Reto_model->obtener_retos_alumno($ID_Usuario);
 	}
+
+
 }

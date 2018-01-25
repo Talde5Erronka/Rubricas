@@ -95,4 +95,10 @@ class Equipo extends CI_Controller {
 		$reto =	$reto = $_GET['reto'];
 		$this->Equipo_model->obtener_equipos_por_cada_reto($reto);
 	}
+
+	public function misequipos(){
+		$ID_Usuario = $_GET['ID_Usuario'];
+
+		$this->Reto_model->miequipo($ID_Usuario);
+	}
 }
