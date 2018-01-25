@@ -87,7 +87,7 @@ public function obtener_retos_profesor($ID_Usuario){
 			$where = "";
 		}
 		else{
-			$where = "and Usuario.ID_Usuario='$ID_Usuario'";
+			$where = "and Usuario.ID_Usuario=$ID_Usuario";
 		}
 
 
@@ -114,7 +114,7 @@ public function obtener_retos_profesor($ID_Usuario){
 		}
 
 		if($ID_Usuario == ''){
-			$where = "";
+			$where = "ola";
 		}
 		else{
 			$where = "and Usuario.ID_Usuario='$ID_Usuario'";
@@ -134,5 +134,10 @@ public function obtener_retos_profesor($ID_Usuario){
 				}
 		echo json_encode($rowdata);
 	}
+
+
+
+
+
 }
 ?>

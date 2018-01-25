@@ -92,13 +92,11 @@ class Equipo_model extends CI_Model{
 		$result = $con->query($sql);
 		$rowdata=array();
 		$i=0;
-			while ($row = $result->fetch_array())
-			{
+			while ($row = $result->fetch_array()){
 				$rowdata[$i]=$row;
 				$i++;			
 			}
 		echo json_encode($rowdata);
-
 	}
 
 	public function obtener_equipos_ajax(){
@@ -110,17 +108,15 @@ class Equipo_model extends CI_Model{
 		  }
 
 
-		$sql = "SELECT * FROM Equipo";
-		$result = $con->query($sql);
+		$sql = "SELECT DISTINCT * FROM Equipo";
 
+		$result = $con->query($sql);
 		$rowdata=array();
 		$i=0;
-				while ($row = $result->fetch_array())
-				{
-					
-					$rowdata[$i]=$row;
-					$i++;			
-				}
+			while ($row = $result->fetch_array()){
+				$rowdata[$i]=$row;
+				$i++;			
+			}
 		echo json_encode($rowdata);
 	}
 
@@ -132,23 +128,50 @@ class Equipo_model extends CI_Model{
 		  }
 
 		if($reto!=""){
-			$sql = "SELECT Reto.ID_Reto, Equipo.ID_Equipo, DESC_Equipo FROM Equipo, Reto WHERE Reto.ID_Reto=Equipo.ID_Reto and Reto.ID_Reto = $reto";
+			$sql = "SELECT DISTINCT Reto.ID_Reto, Equipo.ID_Equipo, DESC_Equipo FROM Equipo, Reto WHERE Reto.ID_Reto=Equipo.ID_Reto and Reto.ID_Reto = $reto";
 		}
 		else{
-			$sql = "SELECT * FROM Equipo";
+			$sql = "";
 		}
 
 		$result = $con->query($sql);
 		$rowdata=array();
 		$i=0;
-				while ($row = $result->fetch_array())
-				{
-					
-					$rowdata[$i]=$row;
-					$i++;			
-				}
+			while ($row = $result->fetch_array()){
+				$rowdata[$i]=$row;
+				$i++;			
+			}
 		echo json_encode($rowdata);
 	}
+
+	public function miequipo($ID_Usuario){
+
+		include ("conexion_2.php");
+			
+		if(!$con) {
+		    echo "No se pudo conectar a la base de datos";
+		}
+
+		if($ID_Usuario != ''){
+			$where = "WHERE ID_Usuario='$ID_Usuario'";
+		}
+		else{
+			$where = "";
+		}
+
+		$sql = "SELECT ID_Equipo FROM Equipo_Usuario $where";
+		
+		$result = $con->query($sql);
+		$rowdata=array();
+		$i=0;
+			while ($row = $result->fetch_array()){
+				$rowdata[$i]=$row;
+				$i++;			
+			}
+		echo json_encode($rowdata);
+	}
+
+
 }
 
 
