@@ -27,7 +27,15 @@
 		});
 
 				
-		
+		$(document).on('change','input[type="checkbox"]' ,function(e) {
+
+			if(this.id=="select-all") {
+
+			    if(this.checked) $('#id_fiscal').val(this.value);
+			    else $('#id_fiscal').val("");
+
+			}
+		});
 
 
 //FUNCIÓN DE LISTAR LA TABLA----------------------------------------------------
@@ -39,7 +47,7 @@
 			var cod2 = document.getElementById('Mediciones').value;
 
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('<?php echo base_url(); ?>index.php/Reto_medicion/filtrar_reto_medicion',{ID_Reto:cod1,ID_Medicion:cod2},function(datos){
+		  	$.get('Reto_medicion/filtrar_reto_medicion',{ID_Reto:cod1,ID_Medicion:cod2},function(datos){
 				
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
@@ -71,7 +79,7 @@
 //DESPLEGABLES------------------------------------------------------------
 
 			//Desplegable CENTROS
-			$.get('<?php echo base_url(); ?>index.php/Reto/Retos_ajax', function(datos){
+			$.get('Reto/Retos_ajax', function(datos){
 						
 				datos2=JSON.parse(datos);
 
@@ -83,7 +91,7 @@
 			});
 
 			//Desplegable Mediciones
-			$.get('<?php echo base_url(); ?>index.php/Medicion/Mediciones_ajax', function(datos3){
+			$.get('Medicion/Mediciones_ajax', function(datos3){
 						
 				datos4=JSON.parse(datos3);
 

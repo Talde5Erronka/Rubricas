@@ -28,12 +28,24 @@
 
 		});
 
+		
+
+	$(document).on('change','input[type="checkbox"]' ,function(e) {
+
+    	if(this.id=="select-all") {
+        	if(this.checked) $('#id_fiscal').val(this.value);
+        	else $('#id_fiscal').val("");
+    	}
+	});
+
+	
+
 	function mostrartabla() {
 
 					//var cod1 = document.getElementById('Cursos').value;
 					//var cod2 = document.getElementById('Curso').value;
 
-  			$.get('<?php echo base_url(); ?>index.php/Curso/Cursos_ajax', function(datos){
+  			$.get('Curso/Cursos_ajax', function(datos){
 				
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);

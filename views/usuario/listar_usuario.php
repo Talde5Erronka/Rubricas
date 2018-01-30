@@ -28,13 +28,22 @@
 				});
 
 		
+
+			$(document).on('change','input[type="checkbox"]' ,function(e) {
+
+   			 	if(this.id=="select-all") {
+        		
+        			if(this.checked) $('#id_fiscal').val(this.value);
+        			else $('#id_fiscal').val("");
+    			}
+			});
 //FUNCIÓN DE LISTAR LA TABLA----------------------------------------------------
 	function mostrartabla() {
 
 			var cod1 = document.getElementById('Centros').value;
 			var cod2 = document.getElementById('TUsuarios').value;
 
-  			$.get('<?php echo base_url(); ?>index.php/Usuario/filtrar_Usuario',{ID_Centro:cod1,ID_TUsuario:cod2},function(datos){
+  			$.get('Usuario/filtrar_Usuario',{ID_Centro:cod1,ID_TUsuario:cod2},function(datos){
 
 							datos2=JSON.parse(datos);
 							document.getElementById("sacardatos").innerHTML="";
@@ -50,7 +59,7 @@
 	}
 
 
-				$.get('<?php echo base_url(); ?>index.php/Centro/Centros_ajax', function(datos3){
+				$.get('Centro/Centros_ajax', function(datos3){
 				
 					datos4=JSON.parse(datos3);
 				
@@ -61,7 +70,7 @@
 				});
 
 
-				$.get('<?php echo base_url(); ?>index.php/Tusuario/Tusuarios_ajax', function(datos){
+				$.get('Tusuario/Tusuarios_ajax', function(datos){
 				
 					datos2=JSON.parse(datos);
 

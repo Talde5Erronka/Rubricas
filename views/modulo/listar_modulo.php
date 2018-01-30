@@ -37,7 +37,7 @@
 			var cod2 = document.getElementById('Ciclos').value;
 			
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('<?php echo base_url(); ?>index.php/Modulo/filtrar_modulo',{ID_Centro:cod1, ID_Ciclo:cod2},function(datos){
+		  	$.get('Modulo/filtrar_modulo',{ID_Centro:cod1, ID_Ciclo:cod2},function(datos){
 
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
@@ -68,7 +68,7 @@
 //DESPLEGABLES------------------------------------------------------------
 			
 			//Desplegable CENTROS
-			$.get('<?php echo base_url(); ?>index.php/Centro/Centros_ajax', function(datos){
+			$.get('Centro/Centros_ajax', function(datos){
 						
 				datos2=JSON.parse(datos);
 
@@ -80,7 +80,7 @@
 			});
 
 			//Desplegable CICLOS
-			$.get('<?php echo base_url(); ?>index.php/Ciclo/Ciclos_ajax', function(datos){
+			$.get('Ciclo/Ciclos_ajax', function(datos){
 						
 				datos4=JSON.parse(datos3);
 

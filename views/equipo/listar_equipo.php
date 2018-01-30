@@ -38,7 +38,7 @@
 			var cod1 = document.getElementById('Retos').value;
 			
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('<?php echo base_url(); ?>index.php/Equipo/filtrar_equipo',{ID_Reto:cod1},function(datos){
+		  	$.get('Equipo/filtrar_equipo',{ID_Reto:cod1},function(datos){
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
 
@@ -64,7 +64,7 @@
 //DESPLEGABLES------------------------------------------------------------
 
 			//Desplegable RETOS
-			$.get('<?php echo base_url(); ?>index.php/Reto/Retos_ajax', function(datos){
+			$.get('Reto/Retos_ajax', function(datos){
 						
 				datos2=JSON.parse(datos);
 

@@ -39,7 +39,7 @@
 			var cod3 = document.getElementById('Competencias').value;
 			
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('<?php echo base_url(); ?>index.php/Medicion_Grupocompetencia_Competencia/filtrar_medicion_grupocompetencia_competencia',{ID_GrupoCompetencia:cod1,ID_Medicion:cod2,ID_Competencia:cod3},function(datos){
+		  	$.get('Medicion_GrupoCompetencia_Competencia/filtrar_medicion_grupocompetencia_competencia',{ID_GrupoCompetencia:cod1,ID_Medicion:cod2,ID_Competencia:cod3},function(datos){
 				
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
@@ -66,7 +66,7 @@
 //DESPLEGABLES------------------------------------------------------------
 
 			//Desplegable GRUPOCOMPETENCIAS
-			$.get('<?php echo base_url(); ?>index.php/GrupoCompetencia/GrupoCompetencias_ajax', function(datos){
+			$.get('GrupoCompetencia/GrupoCompetencias_ajax', function(datos){
 						
 				datos2=JSON.parse(datos);
 
@@ -78,7 +78,7 @@
 			});
 
 			//Desplegable MEDICIONES
-			$.get('<?php echo base_url(); ?>index.php/Medicion/Mediciones_ajax', function(datos3){
+			$.get('Medicion/Mediciones_ajax', function(datos3){
 						
 				datos4=JSON.parse(datos3);
 
@@ -90,7 +90,7 @@
 			});
 
 			//Desplegable COMPETENCIAS
-			$.get('<?php echo base_url(); ?>index.php/Competencia/Competencias_ajax', function(datos5){
+			$.get('Competencia/Competencias_ajax', function(datos5){
 						
 				datos6=JSON.parse(datos5);
 

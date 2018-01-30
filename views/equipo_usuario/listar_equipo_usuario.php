@@ -39,7 +39,7 @@
 			var cod2 = document.getElementById('Usuarios').value;
 			
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('<?php echo base_url(); ?>index.php/Equipo_usuario/filtrar_equipo_usuario',{ID_Equipo:cod1,ID_Usuario:cod2},function(datos){
+		  	$.get('Equipo_usuario/filtrar_equipo_usuario',{ID_Equipo:cod1,ID_Usuario:cod2},function(datos){
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
 
@@ -65,7 +65,7 @@
 //DESPLEGABLES------------------------------------------------------------
 
 			//Desplegable CENTROS
-			$.get('<?php echo base_url(); ?>index.php/Equipo/Equipos_ajax', function(datos){
+			$.get('Equipo/Equipos_ajax', function(datos){
 						
 				datos2=JSON.parse(datos);
 
@@ -77,7 +77,7 @@
 			});
 
 			//Desplegable Usuarios
-			$.get('<?php echo base_url(); ?>index.php/Usuario/Usuarios_ajax', function(datos3){
+			$.get('Usuario/Usuarios_ajax', function(datos3){
 						
 				datos4=JSON.parse(datos3);
 

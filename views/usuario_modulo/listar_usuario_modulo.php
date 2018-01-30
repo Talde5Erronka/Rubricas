@@ -39,7 +39,7 @@
 			var cod2 = document.getElementById('Usuarios').value;
 
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('<?php echo base_url(); ?>index.php/Usuario_modulo/filtrar_usuario_modulo',{ID_Modulo:cod1,ID_Usuario:cod2},function(datos){
+		  	$.get('Usuario_modulo/filtrar_usuario_modulo',{ID_Modulo:cod1,ID_Usuario:cod2},function(datos){
 
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
@@ -66,7 +66,7 @@
 //DESPLEGABLES------------------------------------------------------------
 
 			//Desplegable MODULOS
-			$.get('<?php echo base_url(); ?>index.php/Modulo/Modulos_ajax', function(datos){
+			$.get('Modulo/Modulos_ajax', function(datos){
 						
 				datos2=JSON.parse(datos);
 
@@ -78,7 +78,7 @@
 			});
 
 			//Desplegable USUARIOS
-			$.get('<?php echo base_url(); ?>index.php/Usuario/Usuarios_ajax', function(datos3){
+			$.get('Usuario/Usuarios_ajax', function(datos3){
 						
 				datos4=JSON.parse(datos3);
 

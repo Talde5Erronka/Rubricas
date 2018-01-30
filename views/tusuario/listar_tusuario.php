@@ -35,7 +35,7 @@
 
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
 			
-		  	$.get('<?php echo base_url(); ?>index.php/Tusuario/Tusuarios_ajax',function(datos){
+		  	$.get('Tusuario/Tusuarios_ajax',function(datos){
 				
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
