@@ -73,17 +73,9 @@ class Reto extends CI_Controller {
 		$this->Reto_model->obtener_retos_ajax();
 	}
 
-	public function Retos_profesor(){
+	public function Retos_usuario(){
 		$ID_Usuario = $_GET['ID_Usuario'];
 
-		$this->Reto_model->obtener_retos_profesor($ID_Usuario);
+		$this->Reto_model->obtener_retos_usuario($ID_Usuario);
 	}
-
-	public function Retos_alumno(){
-		$ID_Usuario = $_GET['ID_Usuario'];
-
-		$this->Reto_model->obtener_retos_alumno($ID_Usuario);
-	}
-
-
 }
