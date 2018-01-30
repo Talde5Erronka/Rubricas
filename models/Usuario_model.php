@@ -166,7 +166,7 @@ class Usuario_model extends CI_Model{
 		echo json_encode($rowdata);
 	}
 
-	public function compañeros_del_reto($ID_Reto, $ID_Equipo){
+	public function compañeros_del_reto($ID_Reto){
 		include("conexion_2.php");
 		if(!$con) {
 	    	echo "No se pudo conectar a la base de datos";
@@ -174,14 +174,14 @@ class Usuario_model extends CI_Model{
 
 		if ($ID_Reto != '') {
 	
-			$where = "and Reto.ID_Reto=$ID_Reto and Equipo.ID_Equipo=$ID_Equipo";
+			$where = "and Reto.ID_Reto=$ID_Reto";
 		}
 		else{
 
 			$where = "";
 		}
 
-		$sql = "SELECT DISTINCT Usuario.ID_Usuario, Dni, Nombre, Apellidos, Email, User FROM Reto, Usuario, Equipo, Equipo_Usuario
+		$sql = "SELECT DISTINCT Usuario.ID_Usuario, Dni, Nombre, Apellidos, Email, User FROM Usuario, Equipo_Usuario, Equipo, Reto
 		WHERE Usuario.ID_Usuario=Equipo_Usuario.ID_Usuario and Equipo_Usuario.ID_Equipo=Equipo.ID_Equipo and Equipo.ID_Reto=Reto.ID_Reto and Usuario.ID_TUsuario = '3' $where";
 
 		$result = $con->query($sql);

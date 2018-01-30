@@ -143,35 +143,6 @@ class Equipo_model extends CI_Model{
 			}
 		echo json_encode($rowdata);
 	}
-
-	public function miequipo($ID_Usuario){
-
-		include ("conexion_2.php");
-			
-		if(!$con) {
-		    echo "No se pudo conectar a la base de datos";
-		}
-
-		if($ID_Usuario != ''){
-			$where = "WHERE ID_Usuario='$ID_Usuario'";
-		}
-		else{
-			$where = "";
-		}
-
-		$sql = "SELECT ID_Equipo FROM Equipo_Usuario $where";
-		
-		$result = $con->query($sql);
-		$rowdata=array();
-		$i=0;
-			while ($row = $result->fetch_array()){
-				$rowdata[$i]=$row;
-				$i++;			
-			}
-		echo json_encode($rowdata);
-	}
-
-
 }
 
 
