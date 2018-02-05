@@ -12,7 +12,6 @@ class Usuario extends CI_Controller {
 		$this->load->model('Usuario_model');		
 	}
 
-	//ok
 	public function index()
 	{
 		$datos['segmento']=$this->uri->segment(3);
@@ -32,7 +31,6 @@ class Usuario extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo(){
 		$datos['centros'] = $this->Centro_model->obtener_centros();
 		$datos['tusuarios'] = $this->Tusuario_model->obtener_tusuarios();
@@ -41,7 +39,6 @@ class Usuario extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo_usuario(){
 		$datos = array(
 			'ID_Centro' => $this->input->post('ID_Centro'),
@@ -57,7 +54,6 @@ class Usuario extends CI_Controller {
 		redirect('Usuario');		
 	}
 
-	//ok
 	public function editar(){
 		$datos['segmento']=$this->uri->segment(3);
 		$datos['usuarios']=$this->Usuario_model->obtener_usuario($datos['segmento']);
@@ -69,7 +65,6 @@ class Usuario extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function actualizar(){
 		$datos = array(
 			'ID_Centro' => $this->input->post('ID_Centro'),
@@ -93,19 +88,12 @@ class Usuario extends CI_Controller {
 	}	
 
 	public function filtrar_Usuario(){
-	
 		$ID_Centro = $_GET['ID_Centro'];
 		$ID_TUsuario = $_GET['ID_TUsuario'];
-
 		$this->Usuario_model->filtrar_usuario_valores($ID_Centro,$ID_TUsuario);		
 	}
-
 		
 	public function Usuarios_ajax(){
 		$this->Usuario_model->obtener_usuarios_ajax();
-	}
-
-	
-
-	
+	}	
 }

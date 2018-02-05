@@ -10,9 +10,7 @@ class Competencia extends CI_Controller {
 		$this->load->model('Competencia_model');		
 	}
 
-	//ok
-	public function index()
-	{
+	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
 			$datos['competencias'] = $this->Competencia_model->obtener_competencias_valores();
@@ -30,7 +28,6 @@ class Competencia extends CI_Controller {
 	}
 
 	/*
-	//ok
 	public function nuevo(){
 
 		$datos['competencia'] = $this->Competencia_model->obtener_competencia();
@@ -39,7 +36,6 @@ class Competencia extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo_competencia(){
 		$datos = array(
 			'ID_Competencia' => $this->input->post('ID_Competencia'),			
@@ -53,7 +49,6 @@ class Competencia extends CI_Controller {
 		redirect('Competencia');		
 	}
 
-	//ok
 	public function editar(){
 		$datos['segmento']=$this->uri->segment(3);
 		$datos['competencias']=$this->Competencia_model->obtener_competencia($datos['segmento']);
@@ -62,7 +57,6 @@ class Competencia extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function actualizar(){
 		$datos = array(
 			'ID_Competencia' => $this->input->post('ID_Competencia'),			

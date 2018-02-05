@@ -11,9 +11,7 @@ class Tusuario extends CI_Controller{
 
 	}
 
-	//ok
-	public function index()
-	{
+	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
 			$datos['tusuarios'] = $this->Tusuario_model->obtener_tusuarios();
@@ -26,15 +24,13 @@ class Tusuario extends CI_Controller{
 		$this->load->view('tusuario/nuevo_tusuario');
 		$this->load->view('footer');
 	}
-
-	//ok
+	
 	public function nuevo(){
 		$this->load->view('header');
 		$this->load->view('tusuario/nuevo_tusuario');
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo_tusuario(){
 		$datos = array(
 			'DESC_TUsuario' => $this->input->post('DESC_TUsuario'),
@@ -43,7 +39,6 @@ class Tusuario extends CI_Controller{
 		redirect('Tusuario');		
 	}
 
-	//
 	public function editar(){
 		$datos['segmento']=$this->uri->segment(3);
 		$datos['tusuarios']=$this->Tusuario_model->obtener_tusuario($datos['segmento']);

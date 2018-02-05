@@ -11,9 +11,7 @@ class Tnevaluador extends CI_Controller {
 		$this->load->model('Tnevaluador_model');
 	}
 
-	//ok
-	public function index()
-	{
+	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
 			$datos['tnevaluadores'] = $this->Tnevaluador_model->obtener_tnevaluadores();
@@ -27,14 +25,12 @@ class Tnevaluador extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo(){
 		$this->load->view('header');
 		$this->load->view('tnevaluador/nuevo_tnevaluador');
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo_tnevaluador(){
 		$datos = array(
 			'DESC_TNEvaluador' => $this->input->post('DESC_TNEvaluador'),
@@ -43,7 +39,6 @@ class Tnevaluador extends CI_Controller {
 		redirect('Tnevaluador');		
 	}
 
-	//
 	public function editar(){
 		$datos['segmento']=$this->uri->segment(3);
 		$datos['tnevaluadores']=$this->Tnevaluador_model->obtener_tnevaluador($datos['segmento']);

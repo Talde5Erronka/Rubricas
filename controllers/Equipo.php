@@ -12,9 +12,7 @@ class Equipo extends CI_Controller {
 		$this->load->model('Equipo_model');		
 	}
 
-	//ok
-	public function index()
-	{
+	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
 			$datos['equipos'] = $this->Equipo_model->obtener_equipos_valores();
@@ -32,7 +30,6 @@ class Equipo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo(){
 
 		$datos['reto'] = $this->Reto_model->obtener_reto();
@@ -42,7 +39,6 @@ class Equipo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo_equipo(){
 		$datos = array(
 			'ID_Reto' => $this->input->post('ID_Reto'),
@@ -53,7 +49,6 @@ class Equipo extends CI_Controller {
 		redirect('Equipo');		
 	}
 
-	//ok
 	public function editar(){
 		$datos['segmento']=$this->uri->segment(3);
 		$datos['equipos']=$this->Equipo_model->obtener_equipo($datos['segmento']);
@@ -63,7 +58,6 @@ class Equipo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function actualizar(){
 		$datos = array(
 			'ID_Reto' => $this->input->post('ID_Reto'),
@@ -98,7 +92,6 @@ class Equipo extends CI_Controller {
 
 	public function misequipos(){
 		$ID_Usuario = $_GET['ID_Usuario'];
-
 		$this->Reto_model->miequipo($ID_Usuario);
 	}
 }

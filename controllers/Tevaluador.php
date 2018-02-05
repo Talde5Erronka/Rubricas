@@ -11,9 +11,7 @@ class Tevaluador extends CI_Controller {
 		$this->load->model('Tevaluador_model');
 	}
 
-	//ok
-	public function index()
-	{
+	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
 			$datos['tevaluadores'] = $this->Tevaluador_model->obtener_tevaluadores();
@@ -27,14 +25,12 @@ class Tevaluador extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo(){
 		$this->load->view('header');
 		$this->load->view('tevaluador/nuevo_tevaluador');
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo_tevaluador(){
 		$datos = array(
 			'DESC_TEvaluador' => $this->input->post('DESC_TEvaluador'),
@@ -43,7 +39,6 @@ class Tevaluador extends CI_Controller {
 		redirect('Tevaluador');		
 	}
 
-	//
 	public function editar(){
 		$datos['segmento']=$this->uri->segment(3);
 		$datos['tevaluadores']=$this->Tevaluador_model->obtener_tevaluador($datos['segmento']);

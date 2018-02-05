@@ -12,9 +12,7 @@ class Modulo extends CI_Controller {
 		$this->load->model('Ciclo_model');		
 	}
 
-	//ok
-	public function index()
-	{
+	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
 			$datos['modulos'] = $this->Modulo_model->obtener_modulos_valores();
@@ -32,7 +30,6 @@ class Modulo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-		//ok
 	public function nuevo(){
 		$datos['modulos'] = $this->Modulo_model->obtener_modulos();
 		
@@ -41,7 +38,6 @@ class Modulo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-		//ok
 	public function nuevo_modulo(){
 		$datos = array(
 			'ID_Modulo' => $this->input->post('ID_Modulo'),
@@ -53,7 +49,6 @@ class Modulo extends CI_Controller {
 		redirect('Modulo');		
 	}
 
-	//ok
 	public function editar(){
 		$datos['segmento']=$this->uri->segment(3);
 		$datos['modulos']=$this->Modulo_model->obtener_modulo($datos['segmento']);
@@ -64,7 +59,6 @@ class Modulo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function actualizar(){
 		$datos = array(
 			'ID_Ciclo' => $this->input->post('ID_Ciclo'),
@@ -85,13 +79,10 @@ class Modulo extends CI_Controller {
 	public function filtrar_modulo(){
 		$ID_Centro = $_GET['ID_Centro'];
 		$ID_Ciclo = $_GET['ID_Ciclo'];
-
 		$this->Modulo_model->filtrar_modulo_valores($ID_Centro,$ID_Ciclo);
 	}
 
 	public function Modulos_ajax(){
 		$this->Modulo_model->obtener_modulos_ajax();
 	}
-
-
-	}
+}

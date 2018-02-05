@@ -11,9 +11,7 @@ class Medicion extends CI_Controller {
 		$this->load->model('Medicion_model');		
 	}
 
-	//ok
-	public function index()
-	{
+	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
 			$datos['mediciones'] = $this->Medicion_model->obtener_mediciones_valores();
@@ -32,7 +30,6 @@ class Medicion extends CI_Controller {
 	}
 
 	/*
-	//ok
 	public function nuevo(){
 
 		$datos['tusuario'] = $this->Tusuario_model->obtener_tusuario();
@@ -42,7 +39,6 @@ class Medicion extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo_medicion(){
 		$datos = array(
 			'ID_TUsuario' => $this->input->post('ID_TUsuario'),
@@ -53,7 +49,6 @@ class Medicion extends CI_Controller {
 		redirect('Medicion');		
 	}
 
-	//ok
 	public function editar(){
 		$datos['segmento']=$this->uri->segment(3);
 		$datos['mediciones']=$this->Medicion_model->obtener_medicion($datos['segmento']);
@@ -63,7 +58,6 @@ class Medicion extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function actualizar(){
 		$datos = array(
 			'ID_TUsuario' => $this->input->post('ID_TUsuario'),
@@ -84,7 +78,6 @@ class Medicion extends CI_Controller {
 
 	public function filtrar_medicion(){
 		$ID_TUsuario = $_GET['ID_TUsuario'];
-
 		$this->Medicion_model->filtrar_medicion_valores($ID_TUsuario);
 	}
 

@@ -13,9 +13,7 @@ class Reto_modulo extends CI_Controller {
 		$this->load->model('Usuario_model');
 	}
 
-	//ok
-	public function index()
-	{
+	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
 			$datos['retos_modulos'] = $this->Reto_modulo_model->obtener_retos_modulos_valores();
@@ -34,7 +32,6 @@ class Reto_modulo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo(){
 		$datos['modulos'] = $this->Modulo_model->obtener_modulos();
 		$datos['retos'] = $this->Reto_model->obtener_retos();
@@ -43,7 +40,6 @@ class Reto_modulo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo_reto_modulo(){
 		$datos = array(
 			'ID_Reto_Modulo' => $this->input->post('ID_Reto_Modulo'),
@@ -57,7 +53,6 @@ class Reto_modulo extends CI_Controller {
 		redirect('Reto_modulo');		
 	}
 
-	//ok
 	public function editar(){
 		$datos['segmento']=$this->uri->segment(3);
 		$datos['retos_modulos']=$this->Reto_modulo_model->obtener_reto_modulo($datos['segmento']);
@@ -70,7 +65,6 @@ class Reto_modulo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function actualizar(){
 		$datos = array(
 			'ID_Reto' => $this->input->post('ID_Reto'),
@@ -91,16 +85,12 @@ class Reto_modulo extends CI_Controller {
 	}	
 
 	public function filtrar_reto_modulo(){
-
 		$ID_Reto = $_GET['ID_Reto'];
 		$ID_Modulo = $_GET['ID_Modulo'];
-
-		$this->Reto_modulo_model->filtrar_reto_modulo_valores($ID_Reto,$ID_Modulo);
-			
+		$this->Reto_modulo_model->filtrar_reto_modulo_valores($ID_Reto,$ID_Modulo);	
 	}
 
 	public function Retos_modulos(){
 		$this->Reto_modulo_model->obtener_retos_modulos_ajax();
 	}
-
 }

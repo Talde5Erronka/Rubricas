@@ -12,9 +12,7 @@ class Ciclo extends CI_Controller {
 		$this->load->model('Ciclo_model');		
 	}
 
-	//ok
-	public function index()
-	{
+	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
 			$datos['ciclos'] = $this->Ciclo_model->obtener_ciclos_valores();
@@ -32,7 +30,6 @@ class Ciclo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo(){
 		$datos['centros'] = $this->Centro_model->obtener_centros();
 		$datos['cursos'] = $this->Curso_model->obtener_cursos();
@@ -41,7 +38,6 @@ class Ciclo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo_ciclo(){
 		$datos = array(
 			'ID_Curso' => $this->input->post('ID_Curso'),
@@ -53,7 +49,6 @@ class Ciclo extends CI_Controller {
 		redirect('Ciclo');		
 	}
 
-	//ok
 	public function editar(){
 		$datos['segmento']=$this->uri->segment(3);
 		$datos['ciclos']=$this->Ciclo_model->obtener_ciclo($datos['segmento']);
@@ -64,7 +59,6 @@ class Ciclo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function actualizar(){
 		$datos = array(
 			'ID_Curso' => $this->input->post('ID_Curso'),
@@ -86,7 +80,6 @@ class Ciclo extends CI_Controller {
 	public function filtrar_ciclo(){
 		$ID_Centro = $_GET['ID_Centro'];
 		$ID_Curso = $_GET['ID_Curso'];
-
 		$this->Ciclo_model->filtrar_ciclo_valores($ID_Centro,$ID_Curso);
 	}
 

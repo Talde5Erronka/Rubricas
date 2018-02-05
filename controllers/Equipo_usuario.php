@@ -14,7 +14,6 @@ class Equipo_usuario extends CI_Controller {
 		$this->load->model('Equipo_usuario_model');		
 	}
 
-	//ok
 	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
@@ -22,13 +21,11 @@ class Equipo_usuario extends CI_Controller {
 		}else{
 			$datos['equipos_usuarios'] = $this->Equipos_usuarios_model->obtener_equipo_usuario($datos['segmento']);
 		}
-		/**********************************************************/
+		
 		$datos['usuarios'] = $this->Usuario_model->obtener_usuarios();
 		$datos['equipos'] = $this->Equipo_model->obtener_equipos();
 
 		$datos['filtrado'] = 0;
-
-		/**********************************************************/
 
 		$this->load->view('header');
 		$this->load->view('equipo_usuario/listar_equipo_usuario',$datos);
@@ -36,8 +33,6 @@ class Equipo_usuario extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-
-		//ok
 	public function nuevo(){
 		$datos['usuarios'] = $this->Usuario_model->obtener_usuarios();
 		$datos['equipos'] = $this->Equipo_model->obtener_equipos();
@@ -46,7 +41,6 @@ class Equipo_usuario extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo_equipo_usuario(){
 		$datos = array(
 			'ID_Equipo_Alumno' => $this->input->post('ID_Equipo_Alumno'),
@@ -58,10 +52,6 @@ class Equipo_usuario extends CI_Controller {
 		redirect('Equipo_usuario');		
 	}
 
-
-
-
-	//ok
 	public function editar(){
 		$datos['segmento']=$this->uri->segment(3);
 		$datos['equipos_usuarios']=$this->Equipo_usuario_model->obtener_equipo_usuario($datos['segmento']);
@@ -72,7 +62,6 @@ class Equipo_usuario extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-		//ok
 	public function actualizar(){
 		$datos = array(
 			'ID_Equipo_Alumno' => $this->input->post('ID_Equipo_Alumno'),
@@ -85,7 +74,6 @@ class Equipo_usuario extends CI_Controller {
 		redirect('Equipo_usuario');
 	}
 
-
 	public function borrar(){
 		$id = $this->uri->segment(3);
 		$this->Equipo_usuario_model->borrar_equipo_usuario($id);
@@ -95,7 +83,6 @@ class Equipo_usuario extends CI_Controller {
 	public function filtrar_equipo_usuario(){
 		$ID_Equipo = $_GET['ID_Equipo'];
 		$ID_Usuario = $_GET['ID_Usuario'];
-
 		$this->Equipo_usuario_model->filtrar_equipo_usuario_valores($ID_Equipo,$ID_Usuario);
 	}
 

@@ -3,63 +3,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 
-
-
 	function __construct(){
 		parent::__construct();
+		$this->load->library('session');
 		$this->load->helper('form');
 		$this->load->helper('url');	
 		$this->load->model('Usuario_model');
 		$this->load->model('Reto_model');
 		$this->load->model('Login_model');
-		$this->load->model('Equipo_model');
-
+		$this->load->model('Equipo_model');	
 	}
 
 	public function index(){
-
 		$datos['usuarios'] = $this->Usuario_model->obtener_usuarios_valores();
 		$datos['usuario_login'] = $this->input->post('usuario');
 		$datos['contraseña_login'] = $this->input->post('contraseña');
 
-
 		$this->load->view('header');
 		$this->load->view('login/login', $datos);
-		$this->load->view('footer');
-
-		
+		$this->load->view('footer');	
 	}
 
 	public function verificar_login(){
-
 		//Coge el nombre y la contraseña que hemos puesto en el login
 		$user = $this->input->post('usuario');
 		$password = $this->input->post('contraseña');
 
 		//Coge los datos de todos los usuarios
-
 		$usuario = $this->Usuario_model->verificar_login($user,$password);
-
-		session_start();
 
 		if ($usuario!=''){
 			foreach ($usuario->result() as $usuario2){
 
 				if($usuario2->ID_TUsuario==2){
-					
-					$_SESSION["NombreLog"]=$usuario2->User;
-					$_SESSION["ID_UsuarioLog"]=$usuario2->ID_Usuario;
+					$this->session->set_userdata('NombreLog', $usuario2->User);
+					$this->session->set_userdata('ID_UsuarioLog', $usuario2->ID_Usuario);
 
 					$this->load->view('header');
 					$this->load->view('login/logueado_profesor');
 				}else if ($usuario2->ID_TUsuario==3){
-
-					$_SESSION["NombreLog"]=$usuario2->User;
-					$_SESSION["ID_UsuarioLog"]=$usuario2->ID_Usuario;
+					$this->session->set_userdata('NombreLog', $usuario2->User);
+					$this->session->set_userdata('ID_UsuarioLog', $usuario2->ID_Usuario);
 
 					$this->load->view('header');
 					$this->load->view('login/logueado_alumno');
-
 				}else{
 					$this->load->view('headerAdmin');
 					$this->load->view('login/logueado_admin');
@@ -74,13 +61,10 @@ class Login extends CI_Controller {
 		}
 	}
 
-
-//--------------------------------------------------PROFESOR LOGUEADO--------------------------------------------------
+//--------------------------------------------------PROFESOR LOGUEADO------------------------------------------------
 
 	public function logueado_profesor(){
-		
 		$datos['retos'] = $this->Reto_model->obtener_retos(); 
-
 		$this->load->view('login/logueado_profesor',$datos); //Envía los datos a la vista Logueado_profesor
 	}
 
@@ -95,32 +79,29 @@ class Login extends CI_Controller {
 		$this->Usuario_model->usuarios_del_reto($ID_Equipo);
 	}
 
-
-
 //--------------------------------------------------ALUMNO LOGUEADO--------------------------------------------------
 
 	public function logueado_alumno(){
-		
-		$datos['retos'] = $this->Reto_model->obtener_retos();
-		
+		$ID_Usuario = $this->session->userdata('ID_UsuarioLog');
+		$datos['retos'] = $this->Reto_model->obtener_retos_usuario($ID_Usuario);
 		$this->load->view('login/logueado_alumno',$datos); //Envía los datos a la vista logueado_alumno
 	}
 
-	public function filtrar_reto_alum(){
-		$ID_Reto = 4;
-		$datos['compañeros_del_reto'] = $this->Usuario_model->compañeros_del_reto($ID_Reto);
-		$this->load->view('login/logueado_alumno',$datos);
-	}
-
-	public function compañeros_reto(){
+	public function conseguir_equipos(){
 		$ID_Usuario = $_GET['ID_Usuario'];
-		$this->Reto_model->obtener_retos_usuario($ID_Usuario);	
+		$ID_Reto = $_GET['ID_Reto'];
+		$datos['ID_Equipo'] = $this->Usuario_model->conseguir_equipos($ID_Usuario,$ID_Reto);
 	}
 
-//--------------------------------------------------ADMIN LOGUEADO--------------------------------------------------
+
+	public function filtrar_reto_alum(){
+	$ID_Equipo = $_GET['ID_Equipo'];
+	$this->Usuario_model->compañeros_del_reto($ID_Equipo);	
+	}
+
+//--------------------------------------------------ADMIN LOGUEADO---------------------------------------------------
 
 	public function logueado_admin(){
 		$this->load->view('login/logueado_admin');
 	}
-
 }

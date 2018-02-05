@@ -7,14 +7,12 @@ class Usuario_modulo extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('form');
 		$this->load->helper('url');		
-		$this->load->model('Modulo_model'); //Modulo
-		$this->load->model('Usuario_model');//Usuario
+		$this->load->model('Modulo_model');
+		$this->load->model('Usuario_model');
 		$this->load->model('Usuario_modulo_model');		
 	}
 
-	//ok
-	public function index()
-	{
+	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
 			$datos['usuarios_modulos'] = $this->Usuario_modulo_model->obtener_usuarios_modulos_valores();
@@ -32,7 +30,6 @@ class Usuario_modulo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo(){
 		$datos['modulos'] = $this->Modulo_model->obtener_modulos();
 		$datos['usuarios'] = $this->Usuario_model->obtener_usuarios();
@@ -41,7 +38,6 @@ class Usuario_modulo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo_usuario_modulo(){
 		$datos = array(
 			'ID_Usuario' => $this->input->post('ID_Usuario'),
@@ -53,7 +49,6 @@ class Usuario_modulo extends CI_Controller {
 		redirect('Usuario_modulo');		
 	}
 
-	//ok
 	public function editar(){
 		$datos['segmento']=$this->uri->segment(3);
 		$datos['usuarios_modulos']=$this->Usuario_modulo_model->obtener_usuario_modulo($datos['segmento']);
@@ -64,7 +59,6 @@ class Usuario_modulo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function actualizar(){
 		$datos = array(
 			'ID_Usuario' => $this->input->post('ID_Usuario'),
@@ -86,7 +80,6 @@ class Usuario_modulo extends CI_Controller {
 	public function filtrar_usuario_modulo(){
 		$ID_Modulo = $_GET['ID_Modulo'];
 		$ID_Usuario = $_GET['ID_Usuario'];
-
 		$this->Usuario_modulo_model->filtrar_usuario_modulo_valores($ID_Modulo,$ID_Usuario);
 	}
 

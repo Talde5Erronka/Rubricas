@@ -13,9 +13,7 @@ class Medicion_GrupoCompetencia_Competencia extends CI_Controller {
 		$this->load->model('Medicion_GrupoCompetencia_Competencia_model');		
 	}
 
-	//ok
-	public function index()
-	{
+	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
 			$datos['mediciones_grupocompetencias_competencias'] = $this->Medicion_GrupoCompetencia_Competencia_model->obtener_mediciones_grupocompetencias_competencias_valores();
@@ -33,8 +31,8 @@ class Medicion_GrupoCompetencia_Competencia extends CI_Controller {
 		//$this->load->view('medicion_grupocompetencia_competencia/nuevo_medicion_grupocompetencia_competencia',$datos);
 		$this->load->view('footer');
 	}
+
 	/*
-	//ok
 	public function nuevo(){
 		$datos['grupocompetencias'] = $this->GrupoCompetencia_model->obtener_grupocompetencias();
 		$datos['mediciones'] = $this->Medicion_model->obtener_mediciones();
@@ -44,7 +42,6 @@ class Medicion_GrupoCompetencia_Competencia extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo_medicion_grupocompetencia_competencia(){
 		$datos = array(
 			'ID_GrupoCompetencia_Competencia' => $this->input->post('ID_GrupoCompetencia_Competencia'),
@@ -57,7 +54,6 @@ class Medicion_GrupoCompetencia_Competencia extends CI_Controller {
 		redirect('Medicion_GrupoCompetencia_Competencia');		
 	}
 
-	//ok
 	public function editar(){
 		$datos['segmento']=$this->uri->segment(3);
 		$datos['mediciones_grupocompetencias_competencias']=$this->Medicion_GrupoCompetencia_Competencia_model->obtener_medicion_grupocompetencia_competencia($datos['segmento']);
@@ -69,7 +65,6 @@ class Medicion_GrupoCompetencia_Competencia extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function actualizar(){
 		$datos = array(
 			'ID_Medicion' => $this->input->post('ID_Medicion'),
@@ -93,7 +88,6 @@ class Medicion_GrupoCompetencia_Competencia extends CI_Controller {
 		$ID_Medicion = $_GET['ID_Medicion'];
 		$ID_GrupoCompetencia = $_GET['ID_GrupoCompetencia'];
 		$ID_Competencia = $_GET['ID_Competencia'];
-
 		$this->Medicion_GrupoCompetencia_Competencia_model->filtrar_medicion_grupocompetencia_competencia_valores($ID_Medicion,$ID_GrupoCompetencia,$ID_Competencia);
 	}
 

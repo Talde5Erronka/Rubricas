@@ -8,11 +8,9 @@ class GrupoCompetencia extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->helper('url');		
 		$this->load->model('GrupoCompetencia_model');
-
 	}
 
-	public function index()
-	{
+	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
 			$datos['grupocompetencias'] = $this->GrupoCompetencia_model->obtener_grupocompetencias();

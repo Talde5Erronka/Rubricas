@@ -10,11 +10,9 @@ class Reto_medicion extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->model('Reto_model');
 		$this->load->model('Medicion_model');		
-	
 		$this->load->model('Reto_medicion_model');
 	}
 
-	//ok
 	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
@@ -34,38 +32,22 @@ class Reto_medicion extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-		
-
-
 	public function filtrar_reto_medicion(){
-		
-
 		$ID_Reto = $_GET['ID_Reto'];
 		$ID_Medicion = $_GET['ID_Medicion'];
-
-		$this->Reto_medicion_model->filtrar_reto_medicion_valores($ID_Reto,$ID_Medicion);
-		
-			
+		$this->Reto_medicion_model->filtrar_reto_medicion_valores($ID_Reto,$ID_Medicion);	
 	}
 
 	public function Retos_mediciones_ajax(){
 		//$this->Centro_model->obtener_centros_ajax();
 	}
 
-
-
-
-
 	/*
-
-
 	public function filtrar_reto_medicion(){
 		$datos = array(
 			'ID_Reto' => $this->input->post('ID_Reto'),
 			'ID_Medicion' => $this->input->post('ID_Medicion'),
-		);	
-		//$filtro_centro = $this->input->post('ID_Centro');
-		//$filtro_curso = $this->input->post('ID_Curso');	
+		);		
 
 		$datos['retos_mediciones']=$this->Reto_medicion_model->filtrar_reto_medicion_valores($datos);	
 		
@@ -76,13 +58,7 @@ class Reto_medicion extends CI_Controller {
 
 		$this->load->view('header');
 		$this->load->view('reto_medicion/listar_reto_medicion',$datos);
-		
-
-		
 		$this->load->view('footer');		
 	}
-
 	*/
-
-
-	}
+}

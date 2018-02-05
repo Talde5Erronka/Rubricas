@@ -11,9 +11,7 @@ class Curso extends CI_Controller {
 		$this->load->model('Curso_model');
 	}
 
-	//ok
-	public function index()
-	{
+	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
 			$datos['cursos'] = $this->Curso_model->obtener_cursos();
@@ -27,14 +25,12 @@ class Curso extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo(){
 		$this->load->view('header');
 		$this->load->view('curso/nuevo_curso');
 		$this->load->view('footer');
 	}
 
-	//ok
 	public function nuevo_curso(){
 		$datos = array(
 			'COD_Curso' => $this->input->post('COD_Curso'),
@@ -43,7 +39,6 @@ class Curso extends CI_Controller {
 		redirect('Curso');		
 	}
 
-	//
 	public function editar(){
 		$datos['segmento']=$this->uri->segment(3);
 		$datos['cursos']=$this->Curso_model->obtener_curso($datos['segmento']);
@@ -67,18 +62,7 @@ class Curso extends CI_Controller {
 		redirect('Curso');
 	}
 
-/*
-	public function filtrar_curso(){
-		$ID_Curso = $_GET['ID_Curso'];
-		$COD_Curso = $_GET['COD_Curso'];
-
-		$this->Curso_model->filtrar_curso_valores($ID_Curso,$COD_Curso);
-	}
-	*/
-
 	public function Cursos_ajax(){
 		$this->Curso_model->obtener_cursos_ajax();
-	}
-
-		
+	}	
 }

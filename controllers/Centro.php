@@ -8,11 +8,9 @@ class Centro extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->helper('url');		
 		$this->load->model('Centro_model');
-
 	}
 
-	public function index()
-	{
+	public function index(){
 		$datos['segmento']=$this->uri->segment(3);
 		if (!$datos['segmento']){
 			$datos['centros'] = $this->Centro_model->obtener_centros();
