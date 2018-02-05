@@ -1,34 +1,32 @@
 <div>
-<?php
+	<?php
 		printf('Gestión de MODULOS<br>');
 		printf('<br>');
-		?>
+	?>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	
-		<script type="text/javascript">
-			
+	<script type="text/javascript">			
 		
-	$("document").ready(function(source){//Función general
+	$("document").ready(function(source){   //Función general
 
 		$('#select-all').click(function(event) {   //Seleccionar todos los check-box
 					 	
 			if(this.checked) { 
 				$(':checkbox').each(function() {
-					   this.checked = true;                       
+					this.checked = true;                       
 				});
 			}
 
 			else {
 				$(':checkbox').each(function() {
-					    this.checked = false;
+					this.checked = false;
 				});
 			}
-
 		});
 
 
-//FUNCIÓN DE LISTAR LA TABLA----------------------------------------------------
+		//FUNCIÓN DE LISTAR LA TABLA
 
 		function mostrartabla(){
 			
@@ -37,7 +35,7 @@
 			var cod2 = document.getElementById('Ciclos').value;
 			
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('Modulo/filtrar_modulo',{ID_Centro:cod1, ID_Ciclo:cod2},function(datos){
+		  	$.get('<?php echo base_url(); ?>index.php/Modulo/filtrar_modulo',{ID_Centro:cod1, ID_Ciclo:cod2},function(datos){
 
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
@@ -46,61 +44,50 @@
 				document.getElementById("sacardatos").innerHTML="";
 				
 				//Mete los títulos de la tabla
-
-
 				$("#sacardatos").append(
-						"<tr><td></td><td><strong>ID_Modulo</strong></td><td><strong>COD_Modulo</strong></td><td><strong>DESC_Modulo</strong></td><td><strong>DESC_Ciclo</strong></td><td><strong>DESC_Centro</strong></td></tr>"
+					"<tr><td></td><td><strong>ID_Modulo</strong></td><td><strong>COD_Modulo</strong></td><td><strong>DESC_Modulo</strong></td><td><strong>DESC_Ciclo</strong></td><td><strong>DESC_Centro</strong></td></tr>"
 				)
-
 
 				//Mete los datos en la tabla
 				$.each(datos2,function(indice,valor){
 					
 					$("#sacardatos").append(
-						"<tr><td><input type='checkbox' name='checkbox[]' id='"+valor.ID_Modulo+"'onClick='gurdar(this.id)'></td><td><a href=Modulo/editar/"+valor.ID_Modulo+">"+valor.ID_Modulo+"</a></td><td><a href=Modulo/editar/"+valor.ID_Modulo+">"+valor.COD_Modulo+"</a></td><td><a href=Modulo/editar/"+valor.ID_Modulo+">"+valor.DESC_Modulo+"</a></td><td><a href=Modulo/editar/"+valor.ID_Modulo+">"+valor.DESC_Ciclo+"</a></td><td><a href=Modulo/editar/"+valor.ID_Modulo+">"+valor.DESC_Centro+"</a></td>"
+						"<tr><td><input type='checkbox' name='checkbox[]' id='"+valor.ID_Modulo+"'onClick='gurdar(this.id)'></td><td><a href=<?php echo base_url(); ?>index.php/Modulo/editar/"+valor.ID_Modulo+">"+valor.ID_Modulo+"</a></td><td><a href=<?php echo base_url(); ?>index.php/Modulo/editar/"+valor.ID_Modulo+">"+valor.COD_Modulo+"</a></td><td><a href=<?php echo base_url(); ?>index.php/Modulo/editar/"+valor.ID_Modulo+">"+valor.DESC_Modulo+"</a></td><td><a href=<?php echo base_url(); ?>index.php/Modulo/editar/"+valor.ID_Modulo+">"+valor.DESC_Ciclo+"</a></td><td><a href=<?php echo base_url(); ?>index.php/Modulo/editar/"+valor.ID_Modulo+">"+valor.DESC_Centro+"</a></td>"
 					)
 				});
-			});
-						
+			});				
 		};
 		
 
-//DESPLEGABLES------------------------------------------------------------
+		//DESPLEGABLES
 			
 			//Desplegable CENTROS
-			$.get('Centro/Centros_ajax', function(datos){
+			$.get('<?php echo base_url(); ?>index.php/Centro/Centros_ajax', function(datos){
 						
 				datos2=JSON.parse(datos);
 
-				$.each(datos2,function(indice,valor){
-						
-						$("#Centros").append('<option value="'+valor.ID_Centro +'">'+valor.DESC_Centro	+'</option>')
+				$.each(datos2,function(indice,valor){	
+					$("#Centros").append('<option value="'+valor.ID_Centro +'">'+valor.DESC_Centro	+'</option>')
 				});
-				
 			});
 
 			//Desplegable CICLOS
-			$.get('Ciclo/Ciclos_ajax', function(datos){
+			$.get('<?php echo base_url(); ?>index.php/Ciclo/Ciclos_ajax', function(datos){
 						
 				datos4=JSON.parse(datos3);
 
 				$.each(datos4,function(indice,valor){
-						
 						$("#Ciclos").append('<option value="'+valor.ID_Ciclo +'">'+valor.DESC_Ciclo	+'</option>')
 				});
-				
 			});
 			
 			//Botón para actualizar los datos
 			$("#boton").click(function(){
 					mostrartabla();
 			});
-							
+
 			mostrartabla(); //EJECUTA LA FUNCIÓN
-
-	
-
-});
+	});
 
 	</script>
 
@@ -117,18 +104,15 @@
 
 	<button id="boton" >Mostrar</button>
 
-	<hr>
+	<br>
+
 	<input type='checkbox' name='select-all' id='select-all' value="hola">
 	
-	<table id='sacardatos'>
-	</table>
+	<table id='sacardatos'></table>
 
 	<input type="submit" name="BtnEliminar" value="Eliminar"/>
 
 	<br>
-	<hr>
-
 	<br>
-
 
 </div>

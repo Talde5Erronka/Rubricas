@@ -1,36 +1,31 @@
 <div>
-<?php
+	<?php
 		printf('Gestión de USUARIOS_MODULOS<br>');
 		printf('<br>');
-		?>
+	?>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	
-		<script type="text/javascript">
-			
+	<script type="text/javascript">	
 		
-	$("document").ready(function(source){//Función general
+	$("document").ready(function(source){   //Función general
 
 		$('#select-all').click(function(event) {   //Seleccionar todos los check-box
 					 	
 			if(this.checked) { 
 				$(':checkbox').each(function() {
-					   this.checked = true;                       
+					this.checked = true;                       
 				});
 			}
 
 			else {
 				$(':checkbox').each(function() {
-					    this.checked = false;
+					this.checked = false;
 				});
 			}
+		});	
 
-		});
-
-				
-		
-
-//FUNCIÓN DE LISTAR LA TABLA----------------------------------------------------
+		//FUNCIÓN DE LISTAR LA TABLA
 
 		function mostrartabla(){
 
@@ -39,7 +34,7 @@
 			var cod2 = document.getElementById('Usuarios').value;
 
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('Usuario_modulo/filtrar_usuario_modulo',{ID_Modulo:cod1,ID_Usuario:cod2},function(datos){
+		  	$.get('<?php echo base_url(); ?>index.php/Usuario_modulo/filtrar_usuario_modulo',{ID_Modulo:cod1,ID_Usuario:cod2},function(datos){
 
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
@@ -49,53 +44,47 @@
 				
 				//Mete los títulos de la tabla
 				$("#sacardatos").append(
-						"<tr><td></td><td><strong>ID_Usuario_Modulo</strong></td><td><strong>DESC_Modulo</strong></td><td><strong>User</strong></td><td><strong>COD_Modulo</strong></td></tr>"
+					"<tr><td></td><td><strong>ID_Usuario_Modulo</strong></td><td><strong>DESC_Modulo</strong></td><td><strong>User</strong></td><td><strong>COD_Modulo</strong></td></tr>"
 				)
 
 				//Mete los datos en la tabla
 				$.each(datos2,function(indice,valor){
 					$("#sacardatos").append( 
-						"<tr><td><input type='checkbox' name='checkbox[]' id='"+valor.ID_Usuario_Modulo+"'onClick='gurdar(this.id)'></td><td><a href=Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.ID_Usuario_Modulo+"</a></td><td><a href=Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.DESC_Modulo+"</a></td><td><a href=Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.User+"</a></td><td><a href=Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.COD_Modulo+"</a></td>"
+						"<tr><td><input type='checkbox' name='checkbox[]' id='"+valor.ID_Usuario_Modulo+"'onClick='gurdar(this.id)'></td><td><a href=<?php echo base_url(); ?>index.php/Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.ID_Usuario_Modulo+"</a></td><td><a href=<?php echo base_url(); ?>index.php/Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.DESC_Modulo+"</a></td><td><a href=<?php echo base_url(); ?>index.php/Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.User+"</a></td><td><a href=<?php echo base_url(); ?>index.php/Usuario_modulo/editar/"+valor.ID_Usuario_Modulo+">"+valor.COD_Modulo+"</a></td>"
 					)
 				});
 			});
-						
-};
-		
+		};
 
-//DESPLEGABLES------------------------------------------------------------
+		//DESPLEGABLES------------------------------------------------------------
 
 			//Desplegable MODULOS
-			$.get('Modulo/Modulos_ajax', function(datos){
+			$.get('<?php echo base_url(); ?>index.php/Modulo/Modulos_ajax', function(datos){
 						
 				datos2=JSON.parse(datos);
 
-				$.each(datos2,function(indice,valor){
-						
-						$("#Modulos").append('<option value="'+valor.ID_Modulo +'">'+valor.DESC_Modulo	+'</option>')
+				$.each(datos2,function(indice,valor){	
+					$("#Modulos").append('<option value="'+valor.ID_Modulo +'">'+valor.DESC_Modulo	+'</option>')
 				});
-				
 			});
 
 			//Desplegable USUARIOS
-			$.get('Usuario/Usuarios_ajax', function(datos3){
+			$.get('<?php echo base_url(); ?>index.php/Usuario/Usuarios_ajax', function(datos3){
 						
 				datos4=JSON.parse(datos3);
 
 				$.each(datos4,function(indice,valor){
-						
-						$("#Usuarios").append('<option value="'+valor.ID_Usuario +'">'+valor.User	+'</option>')
+					$("#Usuarios").append('<option value="'+valor.ID_Usuario +'">'+valor.User	+'</option>')
 				});
-				
 			});
 			
 			//Botón para actualizar los datos
 			$("#boton").click(function(){
-					mostrartabla();
+				mostrartabla();
 			});
 							
-			mostrartabla(); //EJECUTA LA FUNCIÓN
-});
+		mostrartabla(); //EJECUTA LA FUNCIÓN
+	});
 
 	</script>
 
@@ -113,18 +102,15 @@
 
 	<button id="boton" >Mostrar</button>
 
-	<hr>
+	<br>
+
 	<input type='checkbox' name='select-all' id='select-all' value="hola">
 	
-	<table id='sacardatos'>
-	</table>
+	<table id='sacardatos'></table>
 
 	<input type="submit" name="BtnEliminar" value="Eliminar"/>
 
 	<br>
-	<hr>
-
 	<br>
-
 
 </div>

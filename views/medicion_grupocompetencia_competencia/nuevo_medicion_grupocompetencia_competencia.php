@@ -1,14 +1,14 @@
 <?php
-$form = array(
-	'name' => 'form_medicion_grupocompetencia_competencia'
+	$form = array(
+		'name' => 'form_medicion_grupocompetencia_competencia'
 	);
 
-$Porcentaje = array(	
-	'name' => 'Porcentaje',
-	'placeholder' => 'Porcentaje',
-	'maxlength' => 100,
-	'size' => 20,
-	'required' => 1
+	$Porcentaje = array(	
+		'name' => 'Porcentaje',
+		'placeholder' => 'Porcentaje',
+		'maxlength' => 100,
+		'size' => 20,
+		'required' => 1
 	);
 
 	if ($mediciones){
@@ -46,36 +46,40 @@ $Porcentaje = array(
     		0         => 'No hay Competencias'
 		);
 	}	
-
 ?>
 
 <div>
-	<?php echo form_open('Medicion_GrupoCompetencia_Competencia/nuevo_medicion_grupocompetencia_competencia',$form);?>
-	<?php echo form_label('Medicion: ','ID_Medicion'); ?>
-	<?php
-	//DESPLEGABLE DE MEDICION
-	echo form_dropdown('ID_Medicion', $ID_Medicion, 1);
-	?>
-	<br>
+	<?php echo form_open('Medicion_GrupoCompetencia_Competencia/nuevo_medicion_grupocompetencia_competencia',$form); ?>
+		
+		<?php echo form_label('Medicion: ','ID_Medicion'); ?>
+		<?php
+			//DESPLEGABLE DE MEDICION
+			echo form_dropdown('ID_Medicion', $ID_Medicion, 1);
+		?>
+		
+		<br>
 
-	<?php echo form_label('GrupoCompetencia: ','ID_Grupo_Competencia'); ?>
-	<?php
-	//DESPLEGABLE DE GRUPOCOMPETENCIA
-	echo form_dropdown('ID_Grupo_Competencia', $ID_Grupo_Competencia, 1);
-	?>
-	<br>
+		<?php echo form_label('GrupoCompetencia: ','ID_Grupo_Competencia'); ?>
+		<?php
+			//DESPLEGABLE DE GRUPOCOMPETENCIA
+			echo form_dropdown('ID_Grupo_Competencia', $ID_Grupo_Competencia, 1);
+		?>
+		
+		<br>
 
-	<?php echo form_label('Competencia: ','ID_Competencia'); ?>
-	<?php
-	//DESPLEGABLE DE COMPETENCIA
-	echo form_dropdown('ID_Competencia', $ID_Competencia, 1);
-	?>
-	<br>
+		<?php echo form_label('Competencia: ','ID_Competencia'); ?>
+		<?php
+			//DESPLEGABLE DE COMPETENCIA
+			echo form_dropdown('ID_Competencia', $ID_Competencia, 1);
+		?>
+		
+		<br>
 
-	<?php echo form_label('Porcentaje: ','Porcentaje'); ?>
-	<?php echo form_input($Porcentaje); ?>
-	<br>
+		<?php echo form_label('Porcentaje: ','Porcentaje'); ?>
+		<?php echo form_input($Porcentaje); ?>
+		
+		<br>
 
-	<?php echo form_submit('Crear','Crear'); ?>
-	<?php echo form_close();?>
+		<?php echo form_submit('Crear','Crear'); ?>
+	<?php echo form_close(); ?>
 </div>

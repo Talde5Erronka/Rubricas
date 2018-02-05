@@ -1,43 +1,25 @@
 <div>
-<?php
-		
 
-		?>
-
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	
-		<script type="text/javascript">
-			
+	<script type="text/javascript">	
 		
-	$("document").ready(function(source){//Función general
+		$("document").ready(function(source){//Función general
 
-		//FUNCIÓN DE LISTAR LA TABLA----------------------------------------------------
-
-		function mostrartabla(){
+			//FUNCIÓN DE LISTAR LA TABLA
+			function mostrartabla(){
 		
-			$("#sacardatos").append( 
-					""
-			)
-		
-
-		};
+				$("#sacardatos").append( 
+						""
+				)
+			};
 						
-		mostrartabla(); //EJECUTA LA FUNCIÓN
-	});
+			mostrartabla(); //EJECUTA LA FUNCIÓN
+		});
 
 	</script>
-
-	<hr>
 	
-	<ul id='sacardatos'>
-	</ul>
-
-	<input type="submit" name="BtnEliminar" value="Eliminar"/>
-
-	<br>
-	<hr>
-
-	<br>
+	<ul id='sacardatos'></ul>
 
 </div>
 

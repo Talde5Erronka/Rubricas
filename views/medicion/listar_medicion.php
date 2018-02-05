@@ -1,36 +1,16 @@
 <div>
-<?php
+	<?php
 		printf('Gestión de MEDICIONES<br>');
 		printf('<br>');
-		?>
+	?>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	
-		<script type="text/javascript">
-			
+	<script type="text/javascript">		
 		
-	$("document").ready(function(source){//Función general
-		/*
-		$('#select-all').click(function(event) {   //Seleccionar todos los check-box
-					 	
-			if(this.checked) { 
-				$(':checkbox').each(function() {
-					   this.checked = true;                       
-				});
-			}
+	$("document").ready(function(source){   //Función general		
 
-			else {
-				$(':checkbox').each(function() {
-					    this.checked = false;
-				});
-			}
-		});
-		*/
-
-				
-		
-
-//FUNCIÓN DE LISTAR LA TABLA----------------------------------------------------
+		//FUNCIÓN DE LISTAR LA TABLA
 
 		function mostrartabla(){
 
@@ -38,7 +18,7 @@
 			var cod1 = document.getElementById('TUsuarios').value;
 			
 			//Manda los valores a la función de filtrar y hace la función con lo que devuelve
-		  	$.get('Medicion/filtrar_medicion',{ID_TUsuario:cod1},function(datos){
+		  	$.get('<?php echo base_url(); ?>index.php/Medicion/filtrar_medicion',{ID_TUsuario:cod1},function(datos){
 				//Se parsea a JSON
 				datos2=JSON.parse(datos);
 
@@ -47,41 +27,38 @@
 				
 				//Mete los títulos de la tabla
 				$("#sacardatos").append(
-						"<tr><td><strong>ID_Medicion</strong></td><td><strong>DESC_TUsuario</strong></td><td><strong>COD_Medicion</strong></td><td><strong>DESC_Medicion</strong></td></tr>"
+					"<tr><td><strong>ID_Medicion</strong></td><td><strong>DESC_TUsuario</strong></td><td><strong>COD_Medicion</strong></td><td><strong>DESC_Medicion</strong></td></tr>"
 				)
 
 				//Mete los datos en la tabla
 				$.each(datos2,function(indice,valor){
 					$("#sacardatos").append( 
-						"<tr><td><a href=Medicion/editar/"+valor.ID_Medicion+">"+valor.ID_Medicion+"</a></td><td><a href=Medicion/editar/"+valor.ID_Medicion+">"+valor.DESC_TUsuario+"</a></td><td><a href=Medicion/editar/"+valor.ID_Medicion+">"+valor.COD_Medicion+"</a></td><td><a href=Medicion/editar/"+valor.ID_Medicion+">"+valor.DESC_Medicion+"</a></td>"
+						"<tr><td><a href=<?php echo base_url(); ?>index.php/Medicion/editar/"+valor.ID_Medicion+">"+valor.ID_Medicion+"</a></td><td><a href=<?php echo base_url(); ?>index.php/Medicion/editar/"+valor.ID_Medicion+">"+valor.DESC_TUsuario+"</a></td><td><a href=<?php echo base_url(); ?>index.php/Medicion/editar/"+valor.ID_Medicion+">"+valor.COD_Medicion+"</a></td><td><a href=<?php echo base_url(); ?>index.php/Medicion/editar/"+valor.ID_Medicion+">"+valor.DESC_Medicion+"</a></td>"
 					)
 				});
-			});
-						
-};
+			});						
+		};
 		
 
-//DESPLEGABLES------------------------------------------------------------
+		//DESPLEGABLES
 
 			//Desplegable RETOS
-			$.get('Tusuario/TUsuarios_ajax', function(datos){
+			$.get('<?php echo base_url(); ?>index.php/Tusuario/TUsuarios_ajax', function(datos){
 						
 				datos2=JSON.parse(datos);
 
-				$.each(datos2,function(indice,valor){
-						
-						$("#TUsuarios").append('<option value="'+valor.ID_TUsuario +'">'+valor.DESC_TUsuario	+'</option>')
+				$.each(datos2,function(indice,valor){	
+					$("#TUsuarios").append('<option value="'+valor.ID_TUsuario +'">'+valor.DESC_TUsuario	+'</option>')
 				});
-				
 			});
 			
 			//Botón para actualizar los datos
 			$("#boton").click(function(){
-					mostrartabla();
+				mostrartabla();
 			});
 							
 			mostrartabla(); //EJECUTA LA FUNCIÓN
-});
+	});
 
 	</script>
 
@@ -92,17 +69,10 @@
 	</select>
 
 	<button id="boton" >Mostrar</button>
-
-	<hr>
-	<!-- <input type='checkbox' name='select-all' id='select-all' value="hola"> -->
 	
-	<table id='sacardatos'>
-	</table>
-
-	<!-- <input type="submit" name="BtnEliminar" value="Eliminar"/> -->
+	<table id='sacardatos'></table>
 
 	<br>
-	<hr>
-
 	<br>
+	
 </div>

@@ -1,19 +1,15 @@
 <?php
-$form = array(
-	'name' => 'form_equipo_usuario'
+	$form = array(
+		'name' => 'form_equipo_usuario'
 	);
 
-$COD_Rol = array(
-	'name' => 'COD_Rol',
-	'placeholder' => 'Rol del usuario',
-	'maxlength' => 20,
-	'size' => 20,
-	'required' => 1
+	$COD_Rol = array(
+		'name' => 'COD_Rol',
+		'placeholder' => 'Rol del usuario',
+		'maxlength' => 20,
+		'size' => 20,
+		'required' => 1
 	);
-
-		//  CENTRO  EQUIPO
-		//  CURSO   USUARIO
-		//  CICLO   EQUIPO_USUARIO
 
 	if ($equipos){
 		$ID_Equipo = array();
@@ -23,7 +19,7 @@ $COD_Rol = array(
 	}
 	else{
 		$ID_Equipo = array(
-    		0         => 'No hay Equipos'
+	    	0         => 'No hay Equipos'
 		);
 	}
 
@@ -35,31 +31,34 @@ $COD_Rol = array(
 	}
 	else{
 		$ID_Usuario = array(
-    		0         => 'No hay Usuarios'
+	   		0         => 'No hay Usuarios'
 		);
 	}	
-
 ?>
 
 <div>
-	<?php echo form_open('Equipo_usuario/nuevo_equipo_usuario',$form);?>
-	<?php echo form_label('Equipo: ','ID_Equipo'); ?>
-	<?php
-	//DESPLEGABLE DE CENTRO
-	echo form_dropdown('ID_Equipo', $ID_Equipo,1);
-	?>
-	<br>
+	<?php echo form_open('<?php echo base_url(); ?>index.php/Equipo_usuario/nuevo_equipo_usuario',$form); ?>
+		<?php echo form_label('Equipo: ','ID_Equipo'); ?>
+		<?php
+			//DESPLEGABLE DE CENTRO
+			echo form_dropdown('ID_Equipo', $ID_Equipo,1);
+		?>
 
-	<?php echo form_label('Usuario: ','ID_Usuario'); ?>
-	<?php
-	//DESPLEGABLE DE CURSOS
-	echo form_dropdown('ID_Usuario', $ID_Usuario,1);
-	?>
-	<br>
+		<br>
 
-	<?php echo form_label('Rol: ','COD_Rol'); ?>
-	<?php echo form_input($COD_Rol); ?>
-	<br>	
-	<?php echo form_submit('Crear','Crear'); ?>
-	<?php echo form_close();?>
+		<?php echo form_label('Usuario: ','ID_Usuario'); ?>
+		<?php
+			//DESPLEGABLE DE CURSOS
+			echo form_dropdown('ID_Usuario', $ID_Usuario,1);
+		?>
+
+		<br>
+
+		<?php echo form_label('Rol: ','COD_Rol'); ?>
+		<?php echo form_input($COD_Rol); ?>
+
+		<br>
+
+		<?php echo form_submit('Crear','Crear'); ?>
+	<?php echo form_close(); ?>
 </div>

@@ -1,22 +1,23 @@
 <?php
-$form = array(
-	'name' => 'form_ciclo'
-	);
-$COD_Ciclo = array(
-	'name' => 'COD_Ciclo',
-	'placeholder' => 'Código de Ciclo',
-	'maxlength' => 10,
-	'size' => 20,
-	'required' => 1
-	);
-$DESC_Ciclo = array(	
-	'name' => 'DESC_Ciclo',
-	'placeholder' => 'Descripción de Ciclo',
-	'maxlength' => 100,
-	'size' => 30,
-	'required' => 1
+	$form = array(
+		'name' => 'form_ciclo'
 	);
 
+	$COD_Ciclo = array(
+		'name' => 'COD_Ciclo',
+		'placeholder' => 'Código de Ciclo',
+		'maxlength' => 10,
+		'size' => 20,
+		'required' => 1
+	);
+
+	$DESC_Ciclo = array(	
+		'name' => 'DESC_Ciclo',
+		'placeholder' => 'Descripción de Ciclo',
+		'maxlength' => 100,
+		'size' => 30,
+		'required' => 1
+	);
 
 	if ($centros){
 		$ID_Centro = array();
@@ -26,7 +27,7 @@ $DESC_Ciclo = array(
 	}
 	else{
 		$ID_Centro = array(
-    		0         => 'No hay Centros'
+	   		0         => 'No hay Centros'
 		);
 	}
 
@@ -38,34 +39,40 @@ $DESC_Ciclo = array(
 	}
 	else{
 		$ID_Curso = array(
-    		0         => 'No hay Cursos'
+	   		0         => 'No hay Cursos'
 		);
 	}	
-
 ?>
 
 <div>
-	<?php echo form_open('Ciclo/nuevo_ciclo',$form);?>
-	<?php echo form_label('Centro: ','ID_Centro'); ?>
-	<?php
-	//DESPLEGABLE DE CENTRO
-	echo form_dropdown('ID_Centro', $ID_Centro,1);
-	?>
-	<br>
+	<?php echo form_open('<?php echo base_url(); ?>index.php/Ciclo/nuevo_ciclo',$form); ?>
 
-	<?php echo form_label('Curso: ','ID_Curso'); ?>
-	<?php
-	//DESPLEGABLE DE CURSOS
-	echo form_dropdown('ID_Curso', $ID_Curso,1);
-	?>
-	<br>
+		<?php echo form_label('Centro: ','ID_Centro'); ?>
+		<?php
+			//DESPLEGABLE DE CENTRO
+			echo form_dropdown('ID_Centro', $ID_Centro,1);
+		?>
 
-	<?php echo form_label('Código de Ciclo: ','COD_Ciclo'); ?>
-	<?php echo form_input($COD_Ciclo); ?>
-	<br>
-	<?php echo form_label('Descripción de Ciclo: ','DESC_Ciclo'); ?>
-	<?php echo form_input($DESC_Ciclo); ?>
-	<br>	
-	<?php echo form_submit('Crear','Crear'); ?>
-	<?php echo form_close();?>
+		<br>
+
+		<?php echo form_label('Curso: ','ID_Curso'); ?>
+		<?php
+			//DESPLEGABLE DE CURSOS
+			echo form_dropdown('ID_Curso', $ID_Curso,1);
+		?>
+
+		<br>
+
+		<?php echo form_label('Código de Ciclo: ','COD_Ciclo'); ?>
+		<?php echo form_input($COD_Ciclo); ?>
+
+		<br>
+		
+		<?php echo form_label('Descripción de Ciclo: ','DESC_Ciclo'); ?>
+		<?php echo form_input($DESC_Ciclo); ?>
+		
+		<br>	
+		
+		<?php echo form_submit('Crear','Crear'); ?>
+	<?php echo form_close(); ?>
 </div>
