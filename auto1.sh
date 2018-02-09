@@ -51,8 +51,11 @@ do
 
 						echo "Subiendo los datos..."
 						git push -u origin master
+
+						exit
+
 					#SI LA RESPUESTA ES 'si' CREA UNA NUEVA CONEXION A GITHUB
-					elif [ "$respuesta" = "no" ]; then
+					elif [ "$respuesta" = "si" ]; then
 						sudo apt-get install git -y
 
 						echo "Iniciando Git..."
@@ -111,8 +114,7 @@ do
 						git pull origin master
 					
 						echo "A configurado correctamente GitHub. Muchas gracias por su paciencia."
-
-
+	
 					#SI LA RESPUESTA ES 'no' CONTINUA
 					elif [ "$respuesta" = "no" ]; then
 						
@@ -145,6 +147,9 @@ do
 
 						echo "Subiendo los datos..."
 						git push -u origin master
+						
+						exit
+
 					#SI NINGUNA DE LAS RESPUESTAS ESTA BIEN
 					else
 						echo "Respuesta inválida, por favor escriba 'si' o 'no'."
